@@ -12,6 +12,7 @@ import { CartSidebarView } from '@components/cart'
 import LoginView from '@components/auth/LoginView'
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/api/operations/get-all-pages'
+import InfoBar from '../InfoBar'
 
 
 const Loading = () => (
@@ -57,6 +58,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
+        <InfoBar />
         <Navbar />
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />

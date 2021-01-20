@@ -1,16 +1,16 @@
 {
-  "title": "ACME Storefront | Powered by Next.js Commerce",
-  "titleTemplate": "%s - ACME Storefront",
-  "description": "Next.js Commerce -> https://www.nextjs.org/commerce",
+  "title": "Fresh Meat - Malgudis Store",
+  "titleTemplate": "%s - Malgudis Store",
+  "description": "Order online fresh halal meat from Malgudis",
   "openGraph": {
     "type": "website",
-    "locale": "en_IE",
-    "url": "https://nextjs.org/commerce",
-    "site_name": "Next.js Commerce"
+    "locale": "en_US",
+    "url": "https://meat.malgudis.us",
+    "site_name": "Malgudis Meat Store"
   },
   "twitter": {
-    "handle": "@nextjs",
-    "site": "@nextjs",
+    "handle": "@malgudisstore",
+    "site": "@malgudisstore",
     "cardType": "summary_large_image"
   }
 }
