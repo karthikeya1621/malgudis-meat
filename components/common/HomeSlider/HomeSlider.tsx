@@ -5,10 +5,11 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import s from './HomeSlider.module.scss'
 
 
+
 const HomeSlider: FC = () => {
     return (
         <div className={s.root} style={{ overflow: 'hidden', height: '400px' }}>
-            <Swiper className="h-full" slidesPerView={1} navigation pagination={{ clickable: true }} scrollbar={{ draggable: true, dragSize: window.innerWidth, hide: true }}>
+            <Swiper className="h-full" slidesPerView={1} navigation pagination={{ clickable: true }} scrollbar={{ draggable: true, dragSize: 1600, hide: true }}>
                 <SwiperSlide>
                     <div className="w-full h-full slide" style={{ background: 'red' }}>
                         <img alt="" src="/images/slides/map.webp" />
