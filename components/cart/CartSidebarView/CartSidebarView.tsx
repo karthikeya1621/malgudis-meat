@@ -8,6 +8,7 @@ import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/use-price'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
@@ -47,11 +48,11 @@ const CartSidebarView: FC = () => {
               aria-label="Close panel"
               className="hover:text-gray-500 transition ease-in-out duration-150"
             >
-              <Cross className="h-6 w-6" />
+            <Cross className="h-6 w-6 inline-block" /> <span style={{display: 'inline-block', marginLeft: '4px'}}>Close</span>
             </button>
           </div>
           <div className="space-y-1">
-            <UserNav className="" />
+            {/* <UserNav className="" /> */}
           </div>
         </div>
       </header>
@@ -59,7 +60,7 @@ const CartSidebarView: FC = () => {
       {isEmpty ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
-            <Bag className="absolute" />
+            <ShoppingCartOutlinedIcon className="absolute" />
           </span>
           <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
             Your cart is empty

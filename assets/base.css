@@ -1,3 +1,4 @@
+
 :root {
   --primary: #ffffff;
   --primary-2: #f1f3f5;
@@ -75,7 +76,7 @@ html {
   height: 100%;
   box-sizing: border-box;
   touch-action: manipulation;
-  font-feature-settings: 'case' 1, 'rlig' 1, 'calt' 0;
+  font-feature-settings: 'case'1, 'rlig'1, 'calt'0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -113,6 +114,11 @@ a {
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+
+.footer {
+  background-color: var(--secondary);
+  color: var(--text-secondary);
 }
 
 @-webkit-keyframes fadeIn {

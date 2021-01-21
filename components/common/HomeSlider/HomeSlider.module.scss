@@ -1,0 +1,14 @@
+.root {
+    @apply w-full;
+  .slide {
+    position: relative;
+
+    img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+      pointer-events: none;
+      object-fit: cover;
+    }
+  }
+}

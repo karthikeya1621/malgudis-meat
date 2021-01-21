@@ -46,6 +46,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@reach/portal": "^0.11.2",
     "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",
@@ -68,6 +69,8 @@
     "react-dom": "^16.14.0",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
+    "sass": "^1.32.5",
+    "swiper": "^6.4.6",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
     "tailwindcss": "^1.9"

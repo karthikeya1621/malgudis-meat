@@ -1,4 +1,4 @@
-import '@assets/main.css'
+import '@assets/main.scss'
 import 'keen-slider/keen-slider.min.css'
 import '@assets/chrome-bug.css'
 

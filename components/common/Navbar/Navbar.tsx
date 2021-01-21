@@ -6,6 +6,14 @@ import { Searchbar, UserNav } from '@components/common'
 import cn from 'classnames'
 import throttle from 'lodash.throttle'
 import InfoBar from '../InfoBar'
+import Rating from '@material-ui/lab/Rating'
+import { withStyles } from '@material-ui/core'
+
+const StyledRating = withStyles({
+  iconEmpty: {
+    color: '#666 !important'
+  }
+})(Rating)
 
 const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -48,8 +56,9 @@ const Navbar: FC = () => {
             </nav> */}
           </div>
 
-          <div className="justify-center flex-1 hidden lg:flex">
+          <div className="justify-center items-center flex-1 hidden lg:flex">
             {/* <Searchbar /> */}
+            <StyledRating value={4.3} precision={0.1} readOnly />
           </div>
 
           <div className="flex justify-end flex-1 space-x-8">
