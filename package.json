@@ -44,6 +44,8 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
     "@reach/portal": "^0.11.2",
     "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",
@@ -62,6 +64,7 @@
     "next-themes": "^0.0.4",
     "postcss-nesting": "^7.0.1",
     "react": "^16.14.0",
+    "react-country-flag": "^2.3.0",
     "react-dom": "^16.14.0",
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",

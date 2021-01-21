@@ -36,7 +36,7 @@ const Head: FC<Props> = ({ categories, brands, newestProducts }) => {
                 <a>All Designers</a>
               </Link>
             </li>
-            {brands.flatMap(({ node }: any) => (
+            {(brands as any[]).flatMap(({ node }: any) => (
               <li key={node.path} className="py-1 text-accents-8 text-base">
                 <Link href={getDesignerPath(node.path)}>
                   <a>{node.name}</a>

@@ -8,6 +8,8 @@ import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
 import { Avatar } from '@components/common'
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 
 interface Props {
   className?: string
@@ -27,16 +29,12 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={s.list}>
-          <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
-          </li>
           <li className={s.item}>
-            <Link href="/wishlist">
-              <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
-                <Heart />
-              </a>
-            </Link>
+            <LocationOnOutlinedIcon /> <span className={s.itemLabel}>Park Avenue, Minnesota</span>
+          </li>
+          <li className={s.item} onClick={toggleSidebar}>
+            <ShoppingCartOutlinedIcon /> <span className={s.itemLabel}>Cart</span>
+            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
           <li className={s.item}>
             {customer ? (
@@ -47,7 +45,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
                 aria-label="Menu"
                 onClick={() => openModal()}
               >
-                <Avatar />
+                <Avatar /> <span className={s.itemLabel}>Login / Register</span>
               </button>
             )}
           </li>

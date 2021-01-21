@@ -1,5 +1,7 @@
 .root {
   @apply sticky top-0 bg-primary z-40 transition-all duration-150;
+  background: #111;
+  color: white;
 }
 
 .link {
@@ -15,7 +17,7 @@
 }
 
 .logo {
-  @apply cursor-pointer rounded-full border transform duration-100 ease-in-out;
+  @apply cursor-pointer transform duration-100 ease-in-out text-3xl m-0;
 
   &:hover {
     @apply shadow-md;

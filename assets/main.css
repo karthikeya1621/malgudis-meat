@@ -5,3 +5,7 @@
 @import './components.css';
 
 @tailwind utilities;
+
+.text-gold{
+  color: gold;
+}

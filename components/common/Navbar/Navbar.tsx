@@ -5,6 +5,7 @@ import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 import cn from 'classnames'
 import throttle from 'lodash.throttle'
+import InfoBar from '../InfoBar'
 
 const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -25,6 +26,7 @@ const Navbar: FC = () => {
 
   return (
     <div className={cn(s.root, { 'shadow-magical': hasScrolled })}>
+      <InfoBar />
       <Container>
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
           <div className="flex items-center flex-1">
@@ -33,7 +35,7 @@ const Navbar: FC = () => {
                 <Logo />
               </a>
             </Link>
-            <nav className="hidden ml-6 space-x-4 lg:block">
+            {/* <nav className="hidden ml-6 space-x-4 lg:block">
               <Link href="/search">
                 <a className={s.link}>All</a>
               </Link>
@@ -43,11 +45,11 @@ const Navbar: FC = () => {
               <Link href="/search?q=accessories">
                 <a className={s.link}>Accessories</a>
               </Link>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="justify-center flex-1 hidden lg:flex">
-            <Searchbar />
+            {/* <Searchbar /> */}
           </div>
 
           <div className="flex justify-end flex-1 space-x-8">
