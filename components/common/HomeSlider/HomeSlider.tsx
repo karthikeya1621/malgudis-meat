@@ -8,7 +8,7 @@ import cn from 'classnames'
 
 const HomeSlider: FC = () => {
   return (
-    <div className={s.root} style={{ overflow: 'hidden', height: '400px' }}>
+    <div className={s.root} style={{ overflow: 'hidden', height: '600px' }}>
       <Swiper
         className="h-full"
         slidesPerView={1}

@@ -88,13 +88,17 @@ export default function Home({
   categories,
   newestProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+
+
+  console.log(categories)
+
   return (
     <>
       <div>
         <HomeSlider />
       </div>
       <div style={{ display: 'none' }}>
-        <Grid>
+        {/* <Grid>
           {featured.slice(0, 3).map(({ node }, i) => (
             <ProductCard
               key={node.path}
@@ -154,7 +158,7 @@ export default function Home({
           categories={categories}
           brands={brands}
           newestProducts={newestProducts}
-        />
+        /> */}
       </div>
     </>
   )

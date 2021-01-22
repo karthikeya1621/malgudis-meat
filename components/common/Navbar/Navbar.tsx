@@ -1,19 +1,13 @@
 import { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
-import s from './Navbar.module.css'
+import s from './Navbar.module.scss'
 import { Logo, Container } from '@components/ui'
 import { Searchbar, UserNav } from '@components/common'
 import cn from 'classnames'
 import throttle from 'lodash.throttle'
 import InfoBar from '../InfoBar'
 import Rating from '@material-ui/lab/Rating'
-import { withStyles } from '@material-ui/core'
 
-const StyledRating = withStyles({
-  iconEmpty: {
-    color: '#666 !important'
-  }
-})(Rating)
 
 const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -58,7 +52,7 @@ const Navbar: FC = () => {
 
           <div className="justify-center items-center flex-1 hidden lg:flex">
             {/* <Searchbar /> */}
-            <StyledRating value={4.3} precision={0.1} readOnly />
+            <Rating className={s.rating} value={4.3} precision={0.1} readOnly />
           </div>
 
           <div className="flex justify-end flex-1 space-x-8">
