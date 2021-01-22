@@ -27,7 +27,7 @@ const Navbar: FC = () => {
   }, [])
 
   return (
-    <div className={cn(s.root, { 'shadow-magical': hasScrolled })}>
+    <div id="header-nav" className={cn(s.root, { 'shadow-magical': hasScrolled })}>
       <InfoBar />
       <Container>
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6">

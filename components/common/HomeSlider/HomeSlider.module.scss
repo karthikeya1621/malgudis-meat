@@ -1,5 +1,6 @@
 .root {
   @apply w-full;
+  height: calc(100vh - 320px);
 }
 
 .slide {

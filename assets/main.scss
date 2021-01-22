@@ -11,10 +11,96 @@
 
 @tailwind utilities;
 
-.text-gold{
+.text-gold {
   color: gold;
 }
 
-.MuiRating-iconEmpty{
-  color: #666;
+.MuiRating-iconEmpty {
+  color: #666 !important;
+}
+
+.mcontainer {
+  @apply mx-auto;
+  @apply max-w-8xl;
+  @apply px-6;
+}
+
+.mcontainer-sm {
+  @apply mx-auto;
+  @apply max-w-6xl;
+}
+
+.meat-categories {
+  transition: all 0.3s ease;
+  transform-origin: center top;
+  background-color: white;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  .meat-category {
+    cursor: pointer;
+    position: relative;
+    max-width: 16%;
+
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      object-position: center center;
+    }
+
+    span {
+      margin-top: 4px;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      color: #343;
+    }
+
+    &:hover {
+      transform: scale(1.12)
+    }
+  }
+
+  &.sticked {
+    transform: scale(0.75);
+    @apply shadow-lg;
+  }
+}
+
+.catheading {
+
+  &::before,
+  &::after {
+    content: url(/images/knives.png);
+    opacity: 0.45;
+    position: relative;
+    pointer-events: none;
+    margin: 0 12px;
+    transform: scale(0.65);
+  }
+}
+
+.mproduct {
+  width: 220px;
+  text-align: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+
+  img {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .info {
+    padding: 8px;
+
+    h6 {
+      margin-bottom: 4px;
+    }
+  }
+
 }

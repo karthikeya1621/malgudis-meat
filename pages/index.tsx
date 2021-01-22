@@ -10,9 +10,13 @@ import getAllProducts from '@framework/api/operations/get-all-products'
 import getSiteInfo from '@framework/api/operations/get-site-info'
 import getAllPages from '@framework/api/operations/get-all-pages'
 
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import Sticky from 'react-sticky-el'
 import HomeSlider from '@components/common/HomeSlider'
+import getCategory, { CategoryResult } from 'graphql/queries/get-category'
+import { useEffect, useState } from 'react'
+import cn from 'classnames'
+import MeatCategory from '@components/custom/MeatCategory'
 
 SwiperCore.use([Navigation, Pagination, Scrollbar])
 
@@ -21,6 +25,8 @@ export async function getStaticProps({
   locale,
 }: GetStaticPropsContext) {
   const config = getConfig({ locale })
+
+  let meatCategories: CategoryResult[] = []
 
   // Get Featured Products
   const { products: featuredProducts } = await getAllProducts({
@@ -45,6 +51,21 @@ export async function getStaticProps({
 
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
+
+  // Get Meat Categories
+  const getMeatCategories = async () => {
+    let promises: Promise<any>[] = []
+    categories.forEach((category, index) => {
+      if (category.name === 'Meat') {
+        promises = category.children.map((mc) =>
+          getCategory({ variables: { path: mc.path } })
+        )
+      }
+    })
+    meatCategories = await Promise.all(promises)
+  }
+
+  await getMeatCategories()
 
   // These are the products that are going to be displayed in the landing.
   // We prefer to do the computation at buildtime/servertime
@@ -72,6 +93,7 @@ export async function getStaticProps({
       bestSelling,
       newestProducts,
       categories,
+      meatCategories,
       brands,
       pages,
     },
@@ -85,17 +107,56 @@ export default function Home({
   featured,
   bestSelling,
   brands,
+  meatCategories,
   categories,
   newestProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [catsOffset, setCatsOffset] = useState(131.5)
+  const [isSticked, setIsSticked] = useState(false)
 
+  useEffect(() => {
+    setCatsOffset(document.getElementById('header-nav')?.clientHeight as number)
+    console.log(meatCategories)
+  }, [])
 
-  console.log(categories)
+  const toggleCatSticky = () => {
+    setIsSticked(!isSticked)
+  }
 
   return (
     <>
-      <div>
+      <div className="w-full">
         <HomeSlider />
+        <Sticky
+          onFixedToggle={toggleCatSticky}
+          stickyStyle={{ top: catsOffset, zIndex: 6 }}
+          topOffset={-catsOffset}
+        >
+          <div
+            className={cn('meat-categories mcontainer', { sticked: isSticked })}
+          >
+            <div className="w-full flex justify-between px-12 py-4">
+              {meatCategories
+                .filter((mc) => mc.defaultImage)
+                .map((mc) => (
+                  <div
+                    key={`mc-${mc.entityId}`}
+                    className="meat-category p-2 rounded-lg transition-all duration-300 hover:shadow"
+                  >
+                    <img src={mc.defaultImage?.url} />
+                    <span>{mc.name}</span>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </Sticky>
+        <div className="w-full" style={{ minHeight: '100vh' }}>
+          {meatCategories
+            .filter((mc) => mc.defaultImage && mc.products.length)
+            .map((mc) => (
+              <MeatCategory key={`mca-${mc.entityId}`} category={mc} />
+            ))}
+        </div>
       </div>
       <div style={{ display: 'none' }}>
         {/* <Grid>
