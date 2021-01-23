@@ -13,6 +13,10 @@ query getCategory($path: String!) {
             edges {
               node {
                 name
+                entityId
+                defaultImage {
+                  url(width: 256, height: 256)
+                }
                 prices {
                   price {
                     value

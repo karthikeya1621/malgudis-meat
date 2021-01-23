@@ -2,7 +2,7 @@ function MeatProductItem({ product }: { product: any }) {
   console.log(product)
   return (
     <div className="mproduct shadow-sm hover:shadow-lg rounded-xl border">
-      <img alt="" src={product.defaultUrl?.url} />
+      <img alt="" src={product.defaultImage?.url} />
       <div className="info">
         <h6>{product.name}</h6>
         <small className="text-base font-bold">
