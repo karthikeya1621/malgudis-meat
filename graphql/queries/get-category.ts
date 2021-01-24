@@ -8,11 +8,13 @@ query getCategory($path: String!) {
         __typename
         ... on Category {
           name
+          path
           entityId
           products {
             edges {
               node {
                 name
+                path
                 entityId
                 defaultImage {
                   url(width: 256, height: 256)
@@ -42,6 +44,7 @@ export type CategoryResult = {
   name: string,
   entityId: number,
   products: any[],
+  path: string,
   defaultImage: {
     url: string
   }

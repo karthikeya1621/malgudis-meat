@@ -1,3 +1,5 @@
+const colors = require('@tailwindcss/ui/colors')
+
 module.exports = {
   future: {
     purgeLayersByDefault: true,
@@ -15,6 +17,7 @@ module.exports = {
     },
   },
   theme: {
+    textColor: theme => theme('colors'),
     extend: {
       maxWidth: {
         '8xl': '1920px',

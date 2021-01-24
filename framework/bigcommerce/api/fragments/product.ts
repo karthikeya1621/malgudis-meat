@@ -49,6 +49,14 @@ export const productInfoFragment = /* GraphQL */ `
     prices {
       ...productPrices
     }
+    inventory {
+      isInStock
+      hasVariantInventory
+      aggregated {
+        availableToSell
+        warningLevel
+      }
+    }
     images {
       edges {
         node {

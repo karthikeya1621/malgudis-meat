@@ -1,0 +1,12 @@
+.root {
+  @apply py-12 px-6;
+}
+
+.instock{
+  @apply font-bold;
+  color: #10B981;
+}
+.outstock {
+  @apply font-bold;
+  color: #DC2626;
+}
