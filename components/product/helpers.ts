@@ -1,4 +1,5 @@
 import type { ProductNode } from '@framework/api/operations/get-product'
+import { camelCase } from 'change-case'
 
 export type SelectedOptions = {
   size: string | null
@@ -38,7 +39,7 @@ export function getCurrentVariant(product: ProductNode, opts: SelectedOptions) {
       node?.productOptions.edges?.find((edge) => {
         if (
           edge?.node.__typename === 'MultipleChoiceOption' &&
-          edge.node.displayName.toLowerCase() === key
+          camelCase(edge.node.displayName) === key
         ) {
           return edge.node.values.edges?.find(
             (valueEdge) => valueEdge?.node.label === value
@@ -47,6 +48,5 @@ export function getCurrentVariant(product: ProductNode, opts: SelectedOptions) {
       })
     )
   })
-
   return variant
 }

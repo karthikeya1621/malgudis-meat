@@ -7,14 +7,19 @@ import usePrice from '@framework/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import s from './CartItem.module.css'
+import { useStateValue } from 'providers/StateProvider'
+import { capitalCase } from 'change-case'
 
 const CartItem = ({
   item,
   currencyCode,
+  choices
 }: {
   item: any
-  currencyCode: string
+  currencyCode: string,
+  choices?: any
 }) => {
+
   const { price } = usePrice({
     amount: item.extended_sale_price,
     baseAmount: item.extended_list_price,
@@ -67,7 +72,8 @@ const CartItem = ({
       setQuantity(item.quantity)
     }
   }, [item.quantity])
-
+  const choiceKeys = choices ? Object.keys(choices).filter(key => key !== 'variant') : []
+  
   return (
     <li
       className={cn('flex flex-row space-x-8 py-8', {
@@ -88,12 +94,13 @@ const CartItem = ({
       <div className="flex-1 flex flex-col text-base">
         {/** TODO: Replace this. No `path` found at Cart */}
         <Link href={`/product/${item.url.split('/')[3]}`}>
-          <span className="font-bold mb-5 text-lg cursor-pointer">
+          <span className="font-bold mb-2 text-lg cursor-pointer">
             {item.name}
-          </span>
+          </span>          
         </Link>
+        {choiceKeys.map(key => <h6 className="text-xs">{capitalCase(key)}: <span className="font-medium text-sm">{choices[key]}</span></h6>)}
 
-        <div className="flex items-center">
+        <div className="flex items-center mt-3">
           <button type="button" onClick={() => increaseQuantity(-1)}>
             <Minus width={18} height={18} />
           </button>

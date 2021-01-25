@@ -6,6 +6,9 @@ import { useRouter } from 'next/router'
 import s from './ProductPage.module.scss'
 import cn from 'classnames'
 import { ProductView } from '@components/custom/Product'
+import { useStateValue } from 'providers/StateProvider'
+import { useEffect } from 'react'
+import { getStateLocal, isStateLocal } from 'providers/StateProvider/StateReducer'
 
 export async function getStaticProps({
   params,
@@ -44,6 +47,21 @@ export default function ProductPage({
   const router = useRouter()
   console.log(router.query)
   console.log(product)
+
+  const [state, dispatch] = useStateValue() as any
+  useEffect(() => {
+    const syncLocal = async () => {
+      const result = await getStateLocal()
+      if (await isStateLocal()) {
+        dispatch({
+          type: 'SYNC_CHOICES',
+          payload: [...result]
+        })
+      }
+    }
+    syncLocal()
+  }, [])
+
   return (
     <ProductView product={product} />
   )

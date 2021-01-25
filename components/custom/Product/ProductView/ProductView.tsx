@@ -8,14 +8,19 @@ import { ProductNode } from '@framework/api/operations/get-product'
 import useAddItem from '@framework/cart/use-add-item'
 import usePrice from '@framework/use-price'
 import { NextSeo } from 'next-seo'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './ProductView.module.scss'
 import cn from 'classnames'
 import { Swatch } from '@components/product'
 import { camelCase } from 'change-case'
 import { Button } from '@components/ui'
+import { useStateValue } from 'providers/StateProvider'
+import { Context } from 'vm'
 
 const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
+
+  const [state, dispatch] = useStateValue() as any
+
   const addItem = useAddItem()
 
   const { price } = usePrice({
@@ -39,7 +44,11 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
     try {
       await addItem({
         productId: product.entityId,
-        variantId: product.variants.edges?.[0]?.node.entityId!,
+        variantId: variant?.node.entityId!,
+      })
+      dispatch({
+        type: 'UPDATE_CHOICES',
+        payload: {...choices, variant: variant?.node.entityId}
       })
       openSidebar()
       setLoading(false)
@@ -47,7 +56,6 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
       setLoading(false)
     }
   }
-
   return (
     <div className={cn(s.root, 'productcontainer', 'w-full')}>
       <NextSeo
@@ -73,7 +81,7 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
             <div className="grid grid-cols-2 gap-10">
               <div className="col-span-auto">
                 <img
-                  className="rounded-xl w-full h-auto"
+                  className="rounded-xl w-full h-auto shadow-xl"
                   alt=""
                   src={
                     product.images.edges
@@ -86,28 +94,38 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
                 {(product as any).inventory?.isInStock ? (
                   <span className={s.instock}>In Stock</span>
                 ) : (
-                  <span className={s.outstock}>Out of Stock</span>
-                )}
+                    <span className={s.outstock}>Out of Stock</span>
+                  )}
 
                 <h2 className="font-medium text-2xl">{product.name}</h2>
 
-                <h5 className="text-xl my-3">
+                <h5 className="text-xl my-5">
                   Price:{' '}
-                  <span className={s.price}>
-                    {price}
+                  <div className={s.price}>
+                    <span className="text-default">$</span>
+                    <span>{variant ? (variant as any)?.node?.prices?.price?.value : price}</span>
                     {` `}
-                    {product.prices?.price.currencyCode}
-                  </span>
+                    <span className="text-base">{product.prices?.price.currencyCode}</span>
+                  </div>
                 </h5>
 
                 {options?.map((opt: any) => (
-                  <div className="pb-4" key={opt.displayName}>
+                  <div className="pb-2 mt-6" key={opt.displayName}>
                     <h2 className="uppercase font-medium">{opt.displayName}</h2>
-                    <div className="flex flex-row py-4">
+                    <div className="flex flex-row py-1">
                       {opt.values.map((v: any, i: number) => {
-                        const active = (choices as any)[
+                        let active = (choices as any)[
                           camelCase(opt.displayName)
                         ]
+                        if (active === null) {
+                          active = opt.values[0].label
+                          setChoices((choices) => {
+                            return {
+                              ...choices,
+                              [camelCase(opt.displayName)]: opt.values[0].label,
+                            }
+                          })
+                        }
                         return (
                           <Swatch
                             key={`${v.entityId}-${i}`}

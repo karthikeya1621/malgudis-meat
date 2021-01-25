@@ -10,7 +10,7 @@ const defaultOpts = {
   method: 'POST',
 }
 
-export type AddItemInput = ItemBody
+export type AddItemInput = ItemBody & {choices? : any}
 
 export const fetcher: HookFetcher<Cart, AddItemBody> = (
   options,

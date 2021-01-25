@@ -9,6 +9,7 @@ import usePrice from '@framework/use-price'
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import { useStateValue } from 'providers/StateProvider'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
@@ -27,11 +28,12 @@ const CartSidebarView: FC = () => {
   )
   const handleClose = () => closeSidebar()
 
+  const [state, dispatch] = useStateValue() as any
+
   const items = data?.line_items.physical_items ?? []
 
   const error = null
   const success = null
-
   return (
     <div
       className={cn(s.root, {
@@ -48,7 +50,7 @@ const CartSidebarView: FC = () => {
               aria-label="Close panel"
               className="hover:text-gray-500 transition ease-in-out duration-150"
             >
-            <Cross className="h-6 w-6 inline-block" /> <span style={{display: 'inline-block', marginLeft: '4px'}}>Close</span>
+              <Cross className="h-6 w-6 inline-block" /> <span style={{ display: 'inline-block', marginLeft: '4px' }}>Close</span>
             </button>
           </div>
           <div className="space-y-1">
@@ -89,49 +91,50 @@ const CartSidebarView: FC = () => {
           </h2>
         </div>
       ) : (
-        <>
-          <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
-              My Cart
+              <>
+                <div className="px-4 sm:px-6 flex-1">
+                  <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide">
+                    My Cart
             </h2>
-            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-              {items.map((item: any) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  currencyCode={data?.currency.code!}
-                />
-              ))}
-            </ul>
-          </div>
+                  <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
+                    {items.map((item: any) => (
+                      <CartItem
+                        key={item.id}
+                        item={item}
+                        currencyCode={data?.currency.code!}
+                        choices={state.length ? state.filter((c: any) => c.variant === item.variant_id)[0] : null}
+                      />
+                    ))}
+                  </ul>
+                </div>
 
-          <div className="flex-shrink-0 px-4  py-5 sm:px-6">
-            <div className="border-t border-accents-3">
-              <ul className="py-3">
-                <li className="flex justify-between py-1">
-                  <span>Subtotal</span>
-                  <span>{subTotal}</span>
-                </li>
-                <li className="flex justify-between py-1">
-                  <span>Taxes</span>
-                  <span>Calculated at checkout</span>
-                </li>
-                <li className="flex justify-between py-1">
-                  <span>Estimated Shipping</span>
-                  <span className="font-bold tracking-wide">FREE</span>
-                </li>
-              </ul>
-              <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
-                <span>Total</span>
-                <span>{total}</span>
-              </div>
-            </div>
-            <Button href="/checkout" Component="a" width="100%">
-              Proceed to Checkout
+                <div className="flex-shrink-0 px-4  py-5 sm:px-6">
+                  <div className="border-t border-accents-3">
+                    <ul className="py-3">
+                      <li className="flex justify-between py-1">
+                        <span>Subtotal</span>
+                        <span>{subTotal}</span>
+                      </li>
+                      <li className="flex justify-between py-1">
+                        <span>Taxes</span>
+                        <span>Calculated at checkout</span>
+                      </li>
+                      <li className="flex justify-between py-1">
+                        <span>Estimated Shipping</span>
+                        <span className="font-bold tracking-wide">FREE</span>
+                      </li>
+                    </ul>
+                    <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
+                      <span>Total</span>
+                      <span>{total}</span>
+                    </div>
+                  </div>
+                  <Button href="/checkout" Component="a" width="100%">
+                    Proceed to Checkout
             </Button>
-          </div>
-        </>
-      )}
+                </div>
+              </>
+            )}
     </div>
   )
 }
