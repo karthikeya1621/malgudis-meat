@@ -2,7 +2,8 @@ import type { ProductNode } from '@framework/api/operations/get-product'
 
 export type SelectedOptions = {
   size: string | null
-  color: string | null
+  color?: string | null
+  customCuts?: string | null
 }
 
 export type ProductOption = {

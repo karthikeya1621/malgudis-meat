@@ -9,7 +9,7 @@ interface Props {
   children?: any
   className?: string
   label?: string
-  variant?: 'size' | 'color' | string
+  variant?: 'size' | 'color' | 'customCuts' | string
   color?: string
 }
 
@@ -21,20 +21,19 @@ const Swatch: FC<Props & ButtonProps> = ({
   active,
   ...props
 }) => {
-  variant = variant?.toLowerCase()
+  variant = variant,
   label = label?.toLowerCase()
 
   const rootClassName = cn(
     s.root,
     {
       [s.active]: active,
-      [s.size]: variant === 'size',
+      [s.size]: variant === 'size' || variant === 'customCuts',
       [s.color]: color,
       [s.dark]: color ? isDark(color) : false,
     },
     className
   )
-
   return (
     <Button
       className={rootClassName}
@@ -48,6 +47,8 @@ const Swatch: FC<Props & ButtonProps> = ({
         </span>
       )}
       {variant === 'size' ? label : null}
+
+      {variant === 'customCuts' ? label : null}
     </Button>
   )
 }

@@ -52,6 +52,7 @@
     "@vercel/fetch": "^6.1.0",
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
+    "change-case": "^4.1.2",
     "classnames": "^2.2.6",
     "cookie": "^0.4.1",
     "email-validator": "^2.0.4",

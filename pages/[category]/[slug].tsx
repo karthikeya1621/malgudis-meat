@@ -5,6 +5,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import s from './ProductPage.module.scss'
 import cn from 'classnames'
+import { ProductView } from '@components/custom/Product'
 
 export async function getStaticProps({
   params,
@@ -44,37 +45,7 @@ export default function ProductPage({
   console.log(router.query)
   console.log(product)
   return (
-    <div className={cn(s.root, 'productcontainer', 'w-full')}>
-      <div className="mcontainer-sm mx-auto">
-        <div className="grid grid-cols-12 gap-2">
-          <div className="col-span-10">
-            <div className="grid grid-cols-2 gap-10">
-              <div className="col-span-auto">
-                <img
-                  className="rounded-xl w-full h-auto"
-                  alt=""
-                  src={
-                    product.images.edges
-                      ? product.images.edges[0]?.node?.urlOriginal
-                      : ''
-                  }
-                />
-              </div>
-              <div className="col-span-auto">
-                {(product as any).inventory?.isInStock ? (
-                  <span className={s.instock}>In Stock</span>
-                ) : (
-                  <span className={s.outstock}>Out of Stock</span>
-                )}
-
-                <h2 className="font-medium text-2xl">{product.name}</h2>
-              </div>
-            </div>
-          </div>
-          <div className="col-span-2"></div>
-        </div>
-      </div>
-    </div>
+    <ProductView product={product} />
   )
 }
 
