@@ -9,6 +9,7 @@ const loginHandler: LoginHandlers['login'] = async ({
   body: { email, password },
   config,
 }) => {
+  console.log('handlers/login.ts', res)
   // TODO: Add proper validations with something like Ajv
   if (!(email && password)) {
     return res.status(400).json({

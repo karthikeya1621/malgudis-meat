@@ -107,3 +107,26 @@
   color: maroon;
   @apply font-medium text-2xl inline-block
 }
+
+.description {
+  @apply my-12;
+  h2{
+    @apply font-black text-gray-600 text-xl mt-10 mb-3 pb-1 border-b uppercase;
+  }
+  h3 {
+    @apply font-bold mt-4 mb-1 text-gray-700;
+    text-decoration: underline;
+  }
+  h5{
+    @apply text-xs mt-1;
+  }
+
+  h4{
+    @apply mt-3 text-sm font-bold;
+  }
+
+  li{
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+}

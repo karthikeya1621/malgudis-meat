@@ -73,7 +73,7 @@ const CartItem = ({
     }
   }, [item.quantity])
   const choiceKeys = choices ? Object.keys(choices).filter(key => key !== 'variant') : []
-  
+
   return (
     <li
       className={cn('flex flex-row space-x-8 py-8', {
@@ -96,9 +96,9 @@ const CartItem = ({
         <Link href={`/product/${item.url.split('/')[3]}`}>
           <span className="font-bold mb-2 text-lg cursor-pointer">
             {item.name}
-          </span>          
+          </span>
         </Link>
-        {choiceKeys.map(key => <h6 className="text-xs">{capitalCase(key)}: <span className="font-medium text-sm">{choices[key]}</span></h6>)}
+        {choiceKeys.map(key => <h6 key={`ch-${key}`} className="text-xs">{capitalCase(key)}: <span className="font-medium text-sm">{choices[key]}</span></h6>)}
 
         <div className="flex items-center mt-3">
           <button type="button" onClick={() => increaseQuantity(-1)}>

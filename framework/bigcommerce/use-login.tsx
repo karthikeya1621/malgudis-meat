@@ -39,6 +39,7 @@ export function extendHook(customFetcher: typeof fetcher) {
     return useCallback(
       async function login(input: LoginInput) {
         const data = await fn(input)
+        // Error Above
         await revalidate()
         return data
       },

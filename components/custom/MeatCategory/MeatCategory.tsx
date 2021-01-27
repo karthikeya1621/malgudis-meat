@@ -14,9 +14,7 @@ function MeatCategory({ category }: { category: CategoryResult }) {
       <div className="w-full mproducts flex flex-wrap justify-between mcontainer-sm py-12">
         {category.products.map((prod) => {
           return (
-            <>
               <MeatProductItem key={`mpi-${prod.entityId}1`} category={category}  product={prod} />
-            </>
           )
         })}
       </div>

@@ -46,6 +46,8 @@ async function login({
     query,
     { variables }
   )
+  console.log('Data', data)
+  console.log('Res',res)
   // Bigcommerce returns a Set-Cookie header with the auth cookie
   let cookie = res.headers.get('Set-Cookie')
 
@@ -54,7 +56,7 @@ async function login({
     if (process.env.NODE_ENV !== 'production') {
       cookie = cookie.replace('; Secure', '')
       // SameSite=none can't be set unless the cookie is Secure
-      // bc seems to sometimes send back SameSite=None rather than none so make 
+      // bc seems to sometimes send back SameSite=None rather than none so make
       // this case insensitive
       cookie = cookie.replace(/; SameSite=none/gi, '; SameSite=lax')
     }

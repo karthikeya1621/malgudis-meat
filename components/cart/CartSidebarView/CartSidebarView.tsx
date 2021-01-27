@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import cn from 'classnames'
 import { UserNav } from '@components/common'
 import { Button } from '@components/ui'
@@ -11,7 +11,16 @@ import s from './CartSidebarView.module.css'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { useStateValue } from 'providers/StateProvider'
 
+import { createCheckoutService } from '@bigcommerce/checkout-sdk';
+import axios from 'axios'
+
 const CartSidebarView: FC = () => {
+
+  useEffect(() => {
+    getCheckoutData()
+  })
+  const service = createCheckoutService()
+
   const { closeSidebar } = useUI()
   const { data, isEmpty } = useCart()
   const { price: subTotal } = usePrice(
@@ -26,11 +35,20 @@ const CartSidebarView: FC = () => {
       currencyCode: data.currency.code,
     }
   )
+
+  const getCheckoutData = async () => {
+    //const cstate = await service.loadCheckout()
+
+  }
+
+
   const handleClose = () => closeSidebar()
 
   const [state, dispatch] = useStateValue() as any
 
   const items = data?.line_items.physical_items ?? []
+
+  console.log(items)
 
   const error = null
   const success = null

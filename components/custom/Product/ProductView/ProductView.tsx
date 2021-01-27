@@ -148,6 +148,12 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
                 ))}
               </div>
             </div>
+
+            <div className="w-4/5">
+              <div dangerouslySetInnerHTML={{__html: product.description}} className={s.description}>
+
+              </div>
+            </div>
           </div>
           <div className="col-span-2">
             <Button
