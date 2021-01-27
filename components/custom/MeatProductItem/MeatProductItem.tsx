@@ -15,7 +15,7 @@ function MeatProductItem({
 
   return (
     <Link href={`/${catSlug}/${prodSlug}`}>
-      <div className="mproduct shadow-sm hover:shadow-lg rounded-xl border">
+      <div className="mproduct mx-4 shadow-sm hover:shadow-lg rounded-xl border">
         <img alt="" src={product.defaultImage?.url} />
         <div className="info">
           <h6>{product.name}</h6>

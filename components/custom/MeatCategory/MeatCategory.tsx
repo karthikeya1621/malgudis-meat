@@ -11,7 +11,7 @@ function MeatCategory({ category }: { category: CategoryResult }) {
       <h1 className="catheading text-3xl text-gray-600 font-bold text-center">
         {category.name}
       </h1>
-      <div className="w-full mproducts flex flex-wrap justify-between mcontainer-sm py-12">
+      <div className="w-full mproducts flex flex-wrap mcontainer-sm py-12">
         {category.products.map((prod) => {
           return (
               <MeatProductItem key={`mpi-${prod.entityId}1`} category={category}  product={prod} />

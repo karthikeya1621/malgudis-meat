@@ -15,10 +15,39 @@ import { Swatch } from '@components/product'
 import { camelCase } from 'change-case'
 import { Button } from '@components/ui'
 import { useStateValue } from 'providers/StateProvider'
+import { FormControl, MenuItem, Select } from '@material-ui/core'
+import $ from 'jquery'
 
 const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
-
   const [state, dispatch] = useStateValue() as any
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(!$('.description-container').hasClass('show')){
+        $('.description-container').addClass('show')
+        $.each($('.description .tab'), (ind, elem) => {
+          $(elem).attr('data-index', ind)
+          $(elem).find('h1').attr('data-index',ind)
+          if(ind === 0) {
+            $(elem).addClass('active')
+            $(elem).find('h1').addClass('active')
+          }
+        })
+        const headings = Array.from($('.description .tab h1').get())
+        $('.description-container .alltabs').append(headings)
+        $('.description-container .alltabs h1').on('click', (e: any) => {
+          const elem = e.target
+          const index = $(elem).attr('data-index')
+          if(!$(elem).hasClass('active')) {
+            $('.description-container .alltabs h1').removeClass('active')
+            $('.description .tab').removeClass('active')
+            $(`.description-container .alltabs h1[data-index="${index}"]`).addClass('active')
+            $(`.description .tab[data-index="${index}"]`).addClass('active')
+          }
+        })
+      }
+    }, 700)
+  })
 
   const addItem = useAddItem()
 
@@ -47,7 +76,7 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
       })
       dispatch({
         type: 'UPDATE_CHOICES',
-        payload: {...choices, variant: variant?.node.entityId}
+        payload: { ...choices, variant: variant?.node.entityId },
       })
       openSidebar()
       setLoading(false)
@@ -93,8 +122,8 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
                 {(product as any).inventory?.isInStock ? (
                   <span className={s.instock}>In Stock</span>
                 ) : (
-                    <span className={s.outstock}>Out of Stock</span>
-                  )}
+                  <span className={s.outstock}>Out of Stock</span>
+                )}
 
                 <h2 className="font-medium text-2xl">{product.name}</h2>
 
@@ -102,56 +131,118 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
                   Price:{' '}
                   <div className={s.price}>
                     <span className="text-default">$</span>
-                    <span>{variant ? (variant as any)?.node?.prices?.price?.value : price}</span>
+                    <span>
+                      {variant
+                        ? (variant as any)?.node?.prices?.price?.value
+                        : price}
+                    </span>
                     {` `}
-                    <span className="text-base">{product.prices?.price.currencyCode}</span>
+                    <span className="text-base">
+                      {product.prices?.price.currencyCode}
+                    </span>
                   </div>
                 </h5>
 
-                {options?.map((opt: any) => (
-                  <div className="pb-2 mt-6" key={opt.displayName}>
-                    <h2 className="uppercase font-medium">{opt.displayName}</h2>
-                    <div className="flex flex-row py-1">
-                      {opt.values.map((v: any, i: number) => {
-                        let active = (choices as any)[
-                          camelCase(opt.displayName)
-                        ]
-                        if (active === null) {
-                          active = opt.values[0].label
-                          setChoices((choices) => {
-                            return {
-                              ...choices,
-                              [camelCase(opt.displayName)]: opt.values[0].label,
-                            }
-                          })
-                        }
-                        return (
-                          <Swatch
-                            key={`${v.entityId}-${i}`}
-                            active={v.label === active}
-                            variant={camelCase(opt.displayName) as any}
-                            label={v.label}
-                            onClick={() => {
+                {options
+                  ?.filter((opt: any) => opt.displayName === 'size')
+                  .map((opt: any) => (
+                    <div className="pb-2 mt-6" key={opt.displayName}>
+                      <h2 className="uppercase font-medium">
+                        {opt.displayName}
+                      </h2>
+                      <div className="flex flex-row py-1">
+                        {opt.values.map((v: any, i: number) => {
+                          let active = (choices as any)[
+                            camelCase(opt.displayName)
+                          ]
+                          if (active === null) {
+                            active = opt.values[0].label
+                            setChoices((choices) => {
+                              return {
+                                ...choices,
+                                [camelCase(opt.displayName)]: opt.values[0]
+                                  .label,
+                              }
+                            })
+                          }
+                          return (
+                            <Swatch
+                              key={`${v.entityId}-${i}`}
+                              active={v.label === active}
+                              variant={camelCase(opt.displayName) as any}
+                              label={v.label}
+                              onClick={() => {
+                                setChoices((choices) => {
+                                  return {
+                                    ...choices,
+                                    [camelCase(opt.displayName)]: v.label,
+                                  }
+                                })
+                              }}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                {options
+                  ?.filter((opt: any) => opt.displayName === 'custom cuts')
+                  .map((opt: any) => (
+                    <div className="pb-2 mt-6" key={opt.displayName}>
+                      <h2 className="uppercase font-medium">
+                        {opt.displayName}
+                      </h2>
+                      <div className="flex flex-row py-1">
+                        <FormControl>
+                          <Select
+                            variant="outlined"
+                            defaultValue={opt.values[0].label}
+                            onChange={(e) => {
                               setChoices((choices) => {
                                 return {
                                   ...choices,
-                                  [camelCase(opt.displayName)]: v.label,
+                                  [camelCase(opt.displayName)]: e.target.value,
                                 }
                               })
                             }}
-                          />
-                        )
-                      })}
+                          >
+                            {opt.values.map((v: any, i: number) => {
+                              let active = (choices as any)[
+                                camelCase(opt.displayName)
+                              ]
+                              if (active === null) {
+                                active = opt.values[0].label
+                                setChoices((choices) => {
+                                  return {
+                                    ...choices,
+                                    [camelCase(opt.displayName)]: opt.values[0]
+                                      .label,
+                                  }
+                                })
+                              }
+                              return (
+                                <MenuItem
+                                  key={`${v.entityId}-${i}`}
+                                  value={v.label}
+                                >
+                                  {v.label}
+                                </MenuItem>
+                              )
+                            })}
+                          </Select>
+                        </FormControl>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
 
-            <div className="w-4/5">
-              <div dangerouslySetInnerHTML={{__html: product.description}} className={s.description}>
-
-              </div>
+            <div className="description-container my-12 w-4/5">
+              <div className="alltabs"></div>
+              <div
+                dangerouslySetInnerHTML={{ __html: product.description }}
+                className={cn(s.description, 'description')}
+              ></div>
             </div>
           </div>
           <div className="col-span-2">

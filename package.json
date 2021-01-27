@@ -92,6 +92,7 @@
     "@types/bunyan-prettystream": "^0.1.31",
     "@types/classnames": "^2.2.10",
     "@types/cookie": "^0.4.0",
+    "@types/jquery": "^3.5.5",
     "@types/js-cookie": "^2.2.6",
     "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.random": "^3.2.6",

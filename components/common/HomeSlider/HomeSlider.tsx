@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import s from './HomeSlider.module.scss'
 import cn from 'classnames'
 
-
 const HomeSlider: FC = () => {
   return (
     <div className={s.root} style={{ overflow: 'hidden' }}>
@@ -17,15 +16,28 @@ const HomeSlider: FC = () => {
         scrollbar={{ draggable: true, dragSize: 1600, hide: true }}
       >
         <SwiperSlide>
-          <div className="w-full h-full slide" style={{ background: 'yellow' }}>
-            <img className={s.img} alt="" src="/images/slides/meat.webp" />
-            <div className={cn(s.s2, s.overlay)}></div>
+          <div className="w-full h-full slide">
+            <img className={s.img} alt="" src="/images/slides/banner1.webp" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="w-full h-full slide" style={{ background: 'red' }}>
-            <img className={s.img} alt="" src="/images/slides/map.webp" />
-            <div className={cn(s.s1, s.overlay)}></div>
+          <div className="w-full h-full slide">
+            <img className={s.img} alt="" src="/images/slides/banner2.webp" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="w-full h-full slide">
+            <img className={s.img} alt="" src="/images/slides/banner3.webp" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="w-full h-full slide">
+            <img className={s.img} alt="" src="/images/slides/banner4.webp" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="w-full h-full slide">
+            <img className={s.img} alt="" src="/images/slides/banner5.webp" />
           </div>
         </SwiperSlide>
       </Swiper>
