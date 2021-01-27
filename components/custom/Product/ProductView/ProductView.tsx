@@ -15,7 +15,6 @@ import { Swatch } from '@components/product'
 import { camelCase } from 'change-case'
 import { Button } from '@components/ui'
 import { useStateValue } from 'providers/StateProvider'
-import { Context } from 'vm'
 
 const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
 
