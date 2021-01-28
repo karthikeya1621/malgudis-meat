@@ -27,7 +27,8 @@
 
 .mcontainer-sm {
   @apply mx-auto;
-  @apply max-w-7xl;
+  @apply max-w-8xl;
+  @apply px-40;
 }
 
 .meat-categories {
@@ -110,7 +111,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   margin-top: 64px;
-  @apply rounded-xl shadow;
+  @apply rounded-xl shadow-lg;
 
   .alltabs {
     display: flex;
