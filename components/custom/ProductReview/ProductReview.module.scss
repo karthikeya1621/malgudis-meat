@@ -1,0 +1,47 @@
+.root{
+  @apply w-full my-6;
+}
+
+.writereview {
+  @apply w-full px-5 py-8 bg-gray-100 max-w-4xl rounded-xl;
+}
+
+.reviewtextarea {
+  color: #222;
+}
+
+.reviewbtn{
+  @apply py-3 px-6 shadow bg-white;
+  color: green;
+  &:hover{
+    @apply shadow-sm;
+    background-color: white;
+  }
+}
+
+.reviewheading {
+  @apply pb-1 mb-3 mt-10 font-bold text-2xl text-gray-700;
+  border-bottom: 3px solid lawngreen;
+}
+
+.allreviews{
+
+}
+
+.reviewitem {
+  @apply my-7;
+  cursor: default;
+}
+
+.rfullname {
+  margin-right: 36px;
+  margin-bottom: 4px;
+}
+
+.rdate {
+  @apply text-sm;
+}
+
+.rcomment{
+  @apply text-lg;
+}

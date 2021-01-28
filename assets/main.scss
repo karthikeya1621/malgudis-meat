@@ -142,9 +142,11 @@
 
 .description {
   display: flex;
+  justify-content: space-evenly;
+  @apply shadow-sm;
 
   h1 {
-    @apply font-extrabold text-gray-600 text-lg mt-10 mb-3 pb-1 uppercase;
+    @apply font-extrabold text-gray-600 text-lg mt-5 mb-3 pb-1 uppercase;
   }
 
   h3 {
@@ -165,12 +167,39 @@
     margin-left: 20px;
   }
 
-  .tab {
+  .tab{
+    @apply px-4 pb-6;
+    flex-basis: 100%;
+  }
+
+  .tab:nth-of-type(odd) {
+    background-color: #EFFDF8;
+  }
+
+  .tabb {
     display: none;
     @apply px-4 py-8;
 
     &.active {
       display: block;
+    }
+  }
+}
+
+.productview{
+  .thumbnails{
+    img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border: 3px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      overflow: hidden;
+      &.active{
+        border-color: green;
+        cursor: default;
+      }
     }
   }
 }

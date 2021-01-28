@@ -17,18 +17,31 @@ import { Button } from '@components/ui'
 import { useStateValue } from 'providers/StateProvider'
 import { FormControl, MenuItem, Select } from '@material-ui/core'
 import $ from 'jquery'
+import ProductReview from '@components/custom/ProductReview'
+import { ProductReviewProps } from 'hooks/useReviews'
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
+const ProductView: FC<{
+  product: ProductNode
+  reviews: ProductReviewProps[]
+}> = ({ product, reviews }) => {
   const [state, dispatch] = useStateValue() as any
 
+  console.log(product)
+
   useEffect(() => {
+    //setupDescriptionTabs()
+  })
+
+  const setupDescriptionTabs = () => {
     setTimeout(() => {
-      if(!$('.description-container').hasClass('show')){
+      if (!$('.description-container').hasClass('show')) {
         $('.description-container').addClass('show')
         $.each($('.description .tab'), (ind, elem) => {
           $(elem).attr('data-index', ind)
-          $(elem).find('h1').attr('data-index',ind)
-          if(ind === 0) {
+          $(elem).find('h1').attr('data-index', ind)
+          if (ind === 0) {
             $(elem).addClass('active')
             $(elem).find('h1').addClass('active')
           }
@@ -38,16 +51,18 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
         $('.description-container .alltabs h1').on('click', (e: any) => {
           const elem = e.target
           const index = $(elem).attr('data-index')
-          if(!$(elem).hasClass('active')) {
+          if (!$(elem).hasClass('active')) {
             $('.description-container .alltabs h1').removeClass('active')
             $('.description .tab').removeClass('active')
-            $(`.description-container .alltabs h1[data-index="${index}"]`).addClass('active')
+            $(
+              `.description-container .alltabs h1[data-index="${index}"]`
+            ).addClass('active')
             $(`.description .tab[data-index="${index}"]`).addClass('active')
           }
         })
       }
     }, 700)
-  })
+  }
 
   const addItem = useAddItem()
 
@@ -103,20 +118,37 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
           ],
         }}
       />
-      <div className="mcontainer-sm mx-auto">
+      <div className="mcontainer-sm mx-auto productview">
         <div className="grid grid-cols-12 gap-2">
           <div className="col-span-10">
             <div className="grid grid-cols-2 gap-10">
               <div className="col-span-auto">
-                <img
-                  className="rounded-xl w-full h-auto shadow-xl"
-                  alt=""
-                  src={
-                    product.images.edges
-                      ? product.images.edges[0]?.node?.urlOriginal
-                      : ''
-                  }
-                />
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-2 thumbnails">
+
+                    <Swiper className="h-full" direction="vertical" slidesPerView={'auto'}>
+                      {
+                        product.images.edges?.map(image => (
+                          <SwiperSlide>
+                            <img alt="" src={image?.node.urlOriginal} className={cn({active: image?.node.isDefault})} />
+                          </SwiperSlide>
+                        ))
+                      }
+                    </Swiper>
+
+                  </div>
+                  <div className="col-span-10">
+                    <img
+                      className="rounded-xl w-full h-auto shadow-xl"
+                      alt=""
+                      src={
+                        product.images.edges
+                          ? product.images.edges[0]?.node?.urlOriginal
+                          : ''
+                      }
+                    />
+                  </div>
+                </div>
               </div>
               <div className="col-span-auto">
                 {(product as any).inventory?.isInStock ? (
@@ -236,14 +268,6 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
                   ))}
               </div>
             </div>
-
-            <div className="description-container my-12 w-4/5">
-              <div className="alltabs"></div>
-              <div
-                dangerouslySetInnerHTML={{ __html: product.description }}
-                className={cn(s.description, 'description')}
-              ></div>
-            </div>
           </div>
           <div className="col-span-2">
             <Button
@@ -256,6 +280,20 @@ const ProductView: FC<{ product: ProductNode }> = ({ product }) => {
             >
               Add to Cart
             </Button>
+          </div>
+
+          <div className="col-span-12">
+            <div className="description-containerr my-12 w-full">
+              <div className="alltabss"></div>
+              <div
+                dangerouslySetInnerHTML={{ __html: product.description }}
+                className={cn(s.description, 'description')}
+              ></div>
+            </div>
+
+            <div className="reviews-container w-full">
+              <ProductReview reviews={reviews} />
+            </div>
           </div>
         </div>
       </div>

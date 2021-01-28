@@ -109,8 +109,8 @@
 }
 
 .description {
-  h2{
-    @apply font-black text-gray-600 text-xl mt-10 mb-3 pb-1 border-b uppercase;
+  h1, h2{
+    @apply font-black text-gray-600 text-xl mt-5 mb-3 pb-1 border-b uppercase;
   }
   h3 {
     @apply font-bold mt-4 mb-1 text-gray-700;

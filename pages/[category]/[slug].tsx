@@ -9,7 +9,7 @@ import { ProductView } from '@components/custom/Product'
 import { useStateValue } from 'providers/StateProvider'
 import { useEffect } from 'react'
 import { getStateLocal, isStateLocal } from 'providers/StateProvider/StateReducer'
-import useReviews from 'hooks/useReviews'
+import useReviews, { ProductReviewProps } from 'hooks/useReviews'
 
 export async function getStaticProps({
   params,
@@ -25,7 +25,7 @@ export async function getStaticProps({
   })
 
   const reviews = await useReviews(135)
-  
+
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
@@ -34,7 +34,7 @@ export async function getStaticProps({
   return {
     props: {
       product,
-      reviews: reviews.data.data ? (reviews.data.data) : []
+      reviews: reviews?.data.data ? (reviews?.data.data) : []
     },
   }
 }
@@ -52,7 +52,6 @@ export default function ProductPage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
-  console.log(reviews)
 
   const [state, dispatch] = useStateValue() as any
   useEffect(() => {
@@ -69,7 +68,7 @@ export default function ProductPage({
   }, [])
 
   return (
-    <ProductView product={product} />
+    <ProductView reviews={reviews} product={product} />
   )
 }
 

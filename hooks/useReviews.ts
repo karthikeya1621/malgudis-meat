@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-export type ProductReview = {
+export type ProductReviewProps = {
     id: number,
     email: string,
     name?: string,
@@ -14,7 +14,7 @@ export type ProductReview = {
 }
 
 export type ProductReviewsResponse = {
-    data: ProductReview[]
+    data: ProductReviewProps[]
 }
 
 
@@ -23,10 +23,10 @@ const useReviews = async (productId: number) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-Auth-Token': process.env.BIGCOMMERCE_STORE_API_TOKEN
+            'X-Auth-Token': process.env.BIGCOMMERCE_STORE_API_TOKEN || 'bnlin6teliqpm4u2navk1lqkydzzer6'
         }
     }
-    const result = await axios.get<any, AxiosResponse<ProductReviewsResponse>>(`${process.env.BIGCOMMERCE_STORE_API_URL}/v3/catalog/products/${productId}/reviews`, config)
+    const result = await axios.get<any, AxiosResponse<ProductReviewsResponse>>(`${process.env.BIGCOMMERCE_STORE_API_URL || 'https://api.bigcommerce.com/stores/3l7whoi1t5'}/v3/catalog/products/${productId}/reviews`, config)
     return result
 }
 
