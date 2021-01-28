@@ -19,12 +19,12 @@ const LoadingDots = dynamic(() => import('@components/ui/LoadingDots'))
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
-    <LoadingDots />
+    {/* <LoadingDots /> */}
   </div>
 )
 
 const dynamicProps = {
-  loading: () => <Loading />,
+  // loading: () => <Loading />,
 }
 
 const SignUpView = dynamic(
