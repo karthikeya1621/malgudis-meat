@@ -21,6 +21,10 @@ import ProductReview from '@components/custom/ProductReview'
 import { ProductReviewProps } from 'hooks/useReviews'
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
+import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
+
+SwiperCore.use([Navigation])
 
 const ProductView: FC<{
   product: ProductNode
@@ -99,6 +103,15 @@ const ProductView: FC<{
       setLoading(false)
     }
   }
+
+  const slideChangeHandler = (e: any) => {
+    console.log('Slide Changed', e)
+  }
+
+  const swiperHandler = (swiper: any) => {
+    console.log(swiper)
+  }
+
   return (
     <div className={cn(s.root, 'productcontainer', 'w-full')}>
       <NextSeo
@@ -126,7 +139,10 @@ const ProductView: FC<{
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-2 thumbnails">
 
-                    <Swiper className="h-full" direction="vertical" slidesPerView={'auto'}>
+                    <Swiper onSwiper={swiperHandler} onSlideChange={slideChangeHandler} className="h-full py-10 px-3 relative" navigation={{nextEl: 'myswiper-button-next',prevEl: 'myswiper-button-prev'}} direction="vertical" slidesPerView={5}>
+                    <div className="myswiper-button-prev">
+                      <KeyboardArrowUpRoundedIcon />
+                    </div>
                       {
                         product.images.edges?.map(image => (
                           <SwiperSlide>
@@ -134,6 +150,9 @@ const ProductView: FC<{
                           </SwiperSlide>
                         ))
                       }
+                      <div className="myswiper-button-next">
+                        <KeyboardArrowDownRoundedIcon />
+                      </div>
                     </Swiper>
 
                   </div>

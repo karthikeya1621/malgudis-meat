@@ -189,8 +189,8 @@
 .productview{
   .thumbnails{
     img {
-      width: 64px;
-      height: 64px;
+      width: 100%;
+      height: auto;
       object-fit: contain;
       border: 3px solid transparent;
       border-radius: 6px;
@@ -200,6 +200,23 @@
         border-color: green;
         cursor: default;
       }
+    }
+
+    .myswiper-button-next, .myswiper-button-prev{
+      position: absolute;
+      @apply mx-auto;
+      text-align: center;
+      cursor: pointer;
+      left: 0;
+      right: 0;
+    }
+
+    .myswiper-button-prev{
+      top: 0;
+    }
+
+    .myswiper-button-next{
+      bottom: 0;
     }
   }
 }

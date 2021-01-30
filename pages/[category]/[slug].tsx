@@ -24,7 +24,7 @@ export async function getStaticProps({
     preview,
   })
 
-  const reviews = await useReviews(135)
+  const reviews = await useReviews(product?.entityId as number)
 
 
   if (!product) {
