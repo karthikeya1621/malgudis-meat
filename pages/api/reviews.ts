@@ -27,17 +27,8 @@ async function handler(req: any, res: any) {
     // Run the middleware
     await runMiddleware(req, res, cors)
 
-    const usDate = moment().tz("America/Regina")
-    const data = {
-        date_reviewed: usDate.format(),
-        email: 'paul.chakka@kalinformatics.com',
-        name: 'Paul Isac',
-        rating: 5,
-        title: 'Test',
-        text: 'Test Review'
-    }
 
-    axios.post(`${process.env.BIGCOMMERCE_STORE_API_URL}/v3/catalog/products/135/reviews`, { ...data }, {
+    axios.post(`${process.env.BIGCOMMERCE_STORE_API_URL}/v3/catalog/products/${req.data.productId}/reviews`, { ...req.data }, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

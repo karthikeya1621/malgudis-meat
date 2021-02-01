@@ -28,7 +28,7 @@
 .mcontainer-sm {
   @apply mx-auto;
   @apply max-w-8xl;
-  @apply px-40;
+  @apply px-20;
 }
 
 .meat-categories {
@@ -143,10 +143,12 @@
 .description {
   display: flex;
   justify-content: space-evenly;
+
+  font-family: 'Roboto';
   @apply shadow-sm;
 
   h1 {
-    @apply font-extrabold text-gray-600 text-lg mt-5 mb-3 pb-1 uppercase;
+    @apply font-extrabold text-gray-600 text-lg mt-5 mb-5 pb-1 uppercase;
   }
 
   h3 {
@@ -157,6 +159,7 @@
   h5 {
     @apply text-xs mt-1;
   }
+
 
   h4 {
     @apply mt-3 text-sm font-bold;
@@ -187,6 +190,11 @@
 }
 
 .productview{
+
+  label{
+    width: 100%;
+  }
+
   .thumbnails{
     img {
       width: 100%;

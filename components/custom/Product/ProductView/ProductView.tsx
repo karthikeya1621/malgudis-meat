@@ -13,7 +13,7 @@ import s from './ProductView.module.scss'
 import cn from 'classnames'
 import { Swatch } from '@components/product'
 import { camelCase } from 'change-case'
-import { Button } from '@components/ui'
+import { Button, Input } from '@components/ui'
 import { useStateValue } from 'providers/StateProvider'
 import { FormControl, MenuItem, Select } from '@material-ui/core'
 import $ from 'jquery'
@@ -21,8 +21,10 @@ import ProductReview from '@components/custom/ProductReview'
 import { ProductReviewProps } from 'hooks/useReviews'
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
-import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
+import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded'
+import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded'
+import Rating from '@material-ui/lab/Rating'
+import TextArea from '@components/ui/TextArea'
 
 SwiperCore.use([Navigation])
 
@@ -34,9 +36,7 @@ const ProductView: FC<{
 
   console.log(product)
 
-  useEffect(() => {
-    
-  }, [])
+  useEffect(() => {}, [])
 
   const setupDescriptionTabs = () => {
     setTimeout(() => {
@@ -138,23 +138,38 @@ const ProductView: FC<{
               <div className="col-span-auto">
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-2 thumbnails">
-
-                    <Swiper onSwiper={swiperHandler} onSlideChange={slideChangeHandler} className="h-full py-10 px-3 relative" navigation={{nextEl: 'myswiper-button-next',prevEl: 'myswiper-button-prev'}} direction="vertical" slidesPerView={5}>
-                    <div className="myswiper-button-prev" onClick={(e) => {console.log(e)}}>
-                      <KeyboardArrowUpRoundedIcon />
-                    </div>
-                      {
-                        product.images.edges?.map(image => (
-                          <SwiperSlide>
-                            <img alt="" src={image?.node.urlOriginal} className={cn({active: image?.node.isDefault})} />
-                          </SwiperSlide>
-                        ))
-                      }
+                    <Swiper
+                      onSwiper={swiperHandler}
+                      onSlideChange={slideChangeHandler}
+                      className="h-full py-10 px-3 relative"
+                      navigation={{
+                        nextEl: 'myswiper-button-next',
+                        prevEl: 'myswiper-button-prev',
+                      }}
+                      direction="vertical"
+                      slidesPerView={5}
+                    >
+                      <div
+                        className="myswiper-button-prev"
+                        onClick={(e) => {
+                          console.log(e)
+                        }}
+                      >
+                        <KeyboardArrowUpRoundedIcon />
+                      </div>
+                      {product.images.edges?.map((image, si) => (
+                        <SwiperSlide key={`slide-${si}`}>
+                          <img
+                            alt=""
+                            src={image?.node.urlOriginal}
+                            className={cn({ active: image?.node.isDefault })}
+                          />
+                        </SwiperSlide>
+                      ))}
                       <div className="myswiper-button-next">
                         <KeyboardArrowDownRoundedIcon />
                       </div>
                     </Swiper>
-
                   </div>
                   <div className="col-span-10">
                     <img
@@ -177,6 +192,17 @@ const ProductView: FC<{
                 )}
 
                 <h2 className="font-medium text-2xl">{product.name}</h2>
+
+                <div className={s.reviewed}>
+                  <Rating
+                    size="small"
+                    readOnly
+                    value={(product as any)?.reviewSummary?.summationOfRatings}
+                  />{' '}
+                  <small>
+                    {(product as any)?.reviewSummary?.numberOfReviews} Reviews
+                  </small>
+                </div>
 
                 <h5 className="text-xl my-5">
                   Price:{' '}
@@ -285,6 +311,24 @@ const ProductView: FC<{
                       </div>
                     </div>
                   ))}
+
+                {product.productOptions.edges
+                  ?.filter((ed) => ed?.node.__typename === 'TextFieldOption')
+                  ?.map((tf: any, ind) => {
+                    return (
+                      <div className="pb-2 mt-6" key={'tf-' + ind}>
+                        <h2 className="uppercase font-medium">
+                          {tf.node.displayName}
+                        </h2>
+                        <div className="flex flex-row py-1">
+                          <label className="hidden" htmlFor="instructions">
+                            Instructions
+                          </label>
+                          <TextArea name="intructions" className="w-full" />
+                        </div>
+                      </div>
+                    )
+                  })}
               </div>
             </div>
           </div>
@@ -311,7 +355,7 @@ const ProductView: FC<{
             </div>
 
             <div className="reviews-container w-full">
-              <ProductReview reviews={reviews} />
+              <ProductReview productId={product.entityId} reviews={reviews} />
             </div>
           </div>
         </div>

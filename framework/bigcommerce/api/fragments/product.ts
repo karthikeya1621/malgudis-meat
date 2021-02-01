@@ -37,6 +37,12 @@ export const multipleChoiceOptionFragment = /* GraphQL */ `
   ${swatchOptionFragment}
 `
 
+export const textFieldOptionFragment = /* GraphQL */ `
+  fragment textFieldOption on TextFieldOption {
+    displayName
+  }
+`
+
 export const productInfoFragment = /* GraphQL */ `
   fragment productInfo on Product {
     entityId

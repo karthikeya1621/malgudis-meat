@@ -1,6 +1,6 @@
 import type { GetProductQuery, GetProductQueryVariables } from '../../schema'
 import setProductLocaleMeta from '../utils/set-product-locale-meta'
-import { productInfoFragment } from '../fragments/product'
+import { productInfoFragment, textFieldOptionFragment } from '../fragments/product'
 import { BigcommerceConfig, getConfig } from '..'
 
 export const getProductQuery = /* GraphQL */ `
@@ -15,6 +15,10 @@ export const getProductQuery = /* GraphQL */ `
           __typename
           ... on Product {
             ...productInfo
+            reviewSummary {
+              numberOfReviews
+              summationOfRatings
+            }
             variants {
               edges {
                 node {
@@ -43,6 +47,14 @@ export const getProductQuery = /* GraphQL */ `
                         ...multipleChoiceOption
                       }
                     }
+                    edges {
+                      node {
+                        __typename
+                        entityId
+                        displayName
+                        ...textFieldOption
+                      }
+                    }
                   }
                 }
               }
@@ -54,6 +66,8 @@ export const getProductQuery = /* GraphQL */ `
   }
 
   ${productInfoFragment}
+
+  ${textFieldOptionFragment}
 `
 
 export type ProductNode = Extract<
