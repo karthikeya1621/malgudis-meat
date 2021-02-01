@@ -35,8 +35,8 @@ const ProductView: FC<{
   console.log(product)
 
   useEffect(() => {
-    //setupDescriptionTabs()
-  })
+    
+  }, [])
 
   const setupDescriptionTabs = () => {
     setTimeout(() => {
@@ -140,7 +140,7 @@ const ProductView: FC<{
                   <div className="col-span-2 thumbnails">
 
                     <Swiper onSwiper={swiperHandler} onSlideChange={slideChangeHandler} className="h-full py-10 px-3 relative" navigation={{nextEl: 'myswiper-button-next',prevEl: 'myswiper-button-prev'}} direction="vertical" slidesPerView={5}>
-                    <div className="myswiper-button-prev">
+                    <div className="myswiper-button-prev" onClick={(e) => {console.log(e)}}>
                       <KeyboardArrowUpRoundedIcon />
                     </div>
                       {
