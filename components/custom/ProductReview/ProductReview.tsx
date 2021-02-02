@@ -79,8 +79,8 @@ const WriteReview = ({productId} : {productId: number}) => {
         <TextArea
           className={s.reviewtextarea}
           placeholder="Write your review here..."
-          onChange={(event) => {
-            setComment(event?.target?.value)
+          onChange={(value) => {
+            setComment(value)
           }}
         />
       </Box>

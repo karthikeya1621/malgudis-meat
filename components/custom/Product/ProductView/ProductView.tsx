@@ -33,7 +33,8 @@ const ProductView: FC<{
   reviews: ProductReviewProps[]
 }> = ({ product, reviews }) => {
   const [state, dispatch] = useStateValue() as any
-
+  let avgRating = ((product as any)?.reviewSummary?.summationOfRatings / (product as any)?.reviewSummary?.numberOfReviews)
+  avgRating = avgRating ? avgRating : 0;
   console.log(product)
 
   useEffect(() => {}, [])
@@ -197,7 +198,7 @@ const ProductView: FC<{
                   <Rating
                     size="small"
                     readOnly
-                    value={(product as any)?.reviewSummary?.summationOfRatings}
+                    value={avgRating}
                   />{' '}
                   <small>
                     {(product as any)?.reviewSummary?.numberOfReviews} Reviews
@@ -324,7 +325,7 @@ const ProductView: FC<{
                           <label className="hidden" htmlFor="instructions">
                             Instructions
                           </label>
-                          <TextArea name="intructions" className="w-full" />
+                          <TextArea name="intructions" className="w-full" style={{resize: 'none'}} />
                         </div>
                       </div>
                     )

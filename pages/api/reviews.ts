@@ -22,21 +22,21 @@ function runMiddleware(req: any, res: any, fn: any) {
 }
 
 async function handler(req: any, res: any) {
-    let error = null;
-    let result = null;
     // Run the middleware
     await runMiddleware(req, res, cors)
 
 
-    axios.post(`${process.env.BIGCOMMERCE_STORE_API_URL}/v3/catalog/products/${req.data.productId}/reviews`, { ...req.data }, {
+    axios.post(`${process.env.BIGCOMMERCE_STORE_API_URL}/v3/catalog/products/${req.body.productId}/reviews`, { ...req.body }, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'X-Auth-Token': `${process.env.BIGCOMMERCE_STORE_API_TOKEN}`
         }
     }).then((result: AxiosResponse) => {
+        console.log(result.statusText)
         res.json({ result: result.statusText })
     }).catch((error: AxiosError) => {
+        console.log(error.response?.data)
         res.json({ response: error.response?.data })
     })
 
