@@ -10,7 +10,7 @@ query getCategory($path: String!) {
           name
           path
           entityId
-          products {
+          products (first: 50) {
             edges {
               node {
                 name

@@ -90,6 +90,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
   color: var(--text-primary);
+  line-height: 1.74em;
 }
 
 body {

@@ -88,7 +88,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
                 </div>
               </li>
             ))}
-            <li>
+            <li style={{display: 'none'}}>
               <a
                 className={cn(s.link, 'justify-between')}
                 onClick={() => {

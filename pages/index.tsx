@@ -36,18 +36,18 @@ export async function getStaticProps({
   })
 
   // Get Best Selling Products
-  const { products: bestSellingProducts } = await getAllProducts({
-    variables: { field: 'bestSellingProducts', first: 6 },
-    config,
-    preview,
-  })
+  // const { products: bestSellingProducts } = await getAllProducts({
+  //   variables: { field: 'bestSellingProducts', first: 6 },
+  //   config,
+  //   preview,
+  // })
 
   // Get Best Newest Products
-  const { products: newestProducts } = await getAllProducts({
-    variables: { field: 'newestProducts', first: 12 },
-    config,
-    preview,
-  })
+  // const { products: newestProducts } = await getAllProducts({
+  //   variables: { field: 'newestProducts', first: 12 },
+  //   config,
+  //   preview,
+  // })
 
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
@@ -67,31 +67,23 @@ export async function getStaticProps({
 
   await getMeatCategories()
 
-  // These are the products that are going to be displayed in the landing.
-  // We prefer to do the computation at buildtime/servertime
-  const { featured, bestSelling } = (() => {
-    // Create a copy of products that we can mutate
-    const products = [...newestProducts]
-    // If the lists of featured and best selling products don't have enough
-    // products, then fill them with products from the products list, this
-    // is useful for new commerce sites that don't have a lot of products
-    return {
-      featured: rangeMap(6, (i) => featuredProducts[i] ?? products.shift())
-        .filter(nonNullable)
-        .sort((a, b) => a.node.prices.price.value - b.node.prices.price.value)
-        .reverse(),
-      bestSelling: rangeMap(
-        6,
-        (i) => bestSellingProducts[i] ?? products.shift()
-      ).filter(nonNullable),
-    }
-  })()
+  // const { featured, bestSelling } = (() => {
+
+  //   const products = [...newestProducts]
+  //   return {
+  //     featured: rangeMap(6, (i) => featuredProducts[i] ?? products.shift())
+  //       .filter(nonNullable)
+  //       .sort((a, b) => a.node.prices.price.value - b.node.prices.price.value)
+  //       .reverse(),
+  //     bestSelling: rangeMap(
+  //       6,
+  //       (i) => bestSellingProducts[i] ?? products.shift()
+  //     ).filter(nonNullable),
+  //   }
+  // })()
 
   return {
     props: {
-      featured,
-      bestSelling,
-      newestProducts,
       categories,
       meatCategories,
       brands,
@@ -104,12 +96,9 @@ export async function getStaticProps({
 const nonNullable = (v: any) => v
 
 export default function Home({
-  featured,
-  bestSelling,
   brands,
   meatCategories,
   categories,
-  newestProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [catsOffset, setCatsOffset] = useState(131.5)
   const [isSticked, setIsSticked] = useState(false)
@@ -125,7 +114,7 @@ export default function Home({
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full" style={{backgroundColor: '#f2f2f2'}}>
         <HomeSlider />
         <Sticky
           onFixedToggle={toggleCatSticky}

@@ -25,6 +25,8 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = Object.values(data?.line_items ?? {}).reduce(countItems, 0)
 
+  const dropdownEl = null
+
   return (
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
@@ -38,7 +40,7 @@ const UserNav: FC<Props> = ({ className, children, ...props }) => {
           </li>
           <li className={s.item}>
             {customer ? (
-              <DropdownMenu />
+              <div className="inline-flex align-center pt-2"><DropdownMenu /> <span className={s.itemLabel}>{customer.firstName}</span></div>
             ) : (
               <button
                 className={s.avatarButton}
