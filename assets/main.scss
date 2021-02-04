@@ -182,7 +182,7 @@
     margin-left: 20px;
   }
 
-  .tab{
+  .tab {
     @apply px-4 pb-6;
     flex-basis: 100%;
   }
@@ -201,13 +201,13 @@
   }
 }
 
-.productview{
+.productview {
 
-  label{
+  label {
     width: 100%;
   }
 
-  .thumbnails{
+  .thumbnails {
     img {
       width: 100%;
       height: auto;
@@ -216,13 +216,15 @@
       border-radius: 6px;
       cursor: pointer;
       overflow: hidden;
-      &.active{
+
+      &.active {
         border-color: green;
         cursor: default;
       }
     }
 
-    .myswiper-button-next, .myswiper-button-prev{
+    .myswiper-button-next,
+    .myswiper-button-prev {
       position: absolute;
       @apply mx-auto;
       text-align: center;
@@ -231,43 +233,88 @@
       right: 0;
     }
 
-    .myswiper-button-prev{
+    .myswiper-button-prev {
       top: 0;
     }
 
-    .myswiper-button-next{
+    .myswiper-button-next {
       bottom: 0;
     }
   }
 }
 
 .profile {
-  .ptabs{
+  .ptabs {
     overflow: hidden;
-    .ptab{
+
+    .ptab {
       @apply px-4 py-2;
       border-left: 2px solid transparent;
       border-bottom: 1px solid #ddd;
       cursor: pointer;
 
-      &.active{
+      &.active {
         border-left: 2px solid lawngreen;
         background-color: #f2f2f2;
         cursor: default;
       }
 
-      &:hover{
+      &:hover {
         background-color: #f2f2f2;
       }
 
-      &.logoutbtn{
+      &.logoutbtn {
         border-bottom: 0;
         color: var(--red);
       }
     }
   }
 
-  .pcontent{
-    @apply px-4 py-6 rounded-lg bg-white shadow;
+  .pcontent {
+    @apply px-1 pt-4 rounded-lg bg-white shadow;
+
+    .contentset {
+      @apply px-3 pb-8 mb-8;
+      border-bottom: 1px solid #bbb;
+
+      .setheading {
+        @apply w-full inline-flex justify-between;
+
+        h3 {
+          @apply text-2xl text-gray-500 mb-6 font-bold;
+          color: seagreen;
+          font-family: 'Roboto';
+        }
+
+        .actions {
+          @apply text-sm;
+          color: blue;
+          cursor: pointer;
+        }
+      }
+
+      &:last-of-type {
+        border-bottom: 0;
+        @apply mb-4;
+      }
+
+      .address {
+        @apply px-2 py-3 mb-2 shadow-sm border rounded-lg relative;
+
+        .options {
+          @apply absolute text-gray-500;
+          right: 12px;
+          top: 6px;
+        }
+
+        strong {
+          @apply mr-3;
+        }
+
+        p {
+          @apply mt-2;
+        }
+      }
+    }
   }
 }
