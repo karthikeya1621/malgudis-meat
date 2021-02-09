@@ -5,9 +5,11 @@ import { useEffect } from 'react'
 function MeatProductItem({
   product,
   category,
+  counter
 }: {
   product: any
-  category: CategoryResult
+  category: CategoryResult,
+  counter: number
 }) {
   const catSlug = last(category.path.split('/'))
   const prodSlug = last(product.path.split('/'))
@@ -16,6 +18,7 @@ function MeatProductItem({
   return (
     <Link href={`/${catSlug}/${prodSlug}`}>
       <div className="mproduct shadow-sm hover:shadow-lg rounded-xl border">
+        <span className="prodnum">{counter}</span>
         <img alt="" src={product.defaultImage?.url} />
         <div className="info">
           <h6>{product.name}</h6>

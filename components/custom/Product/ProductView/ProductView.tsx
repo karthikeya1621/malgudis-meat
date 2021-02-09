@@ -174,7 +174,7 @@ const ProductView: FC<{
                   </div>
                   <div className="col-span-10">
                     <img
-                      className="rounded-xl w-full h-auto shadow-xl"
+                      className="rounded-xl w-full h-auto border-r"
                       alt=""
                       src={
                         product.images.edges
@@ -226,7 +226,7 @@ const ProductView: FC<{
                   .map((opt: any) => (
                     <div className="pb-2 mt-6" key={opt.displayName}>
                       <h2 className="uppercase font-medium">
-                        {opt.displayName}
+                        {opt.displayName === 'size' ? 'weight' : 'size'}
                       </h2>
                       <div className="flex flex-row py-1">
                         {opt.values.map((v: any, i: number) => {
@@ -235,6 +235,7 @@ const ProductView: FC<{
                           ]
                           if (active === null) {
                             active = opt.values[0].label
+                            console.log('Active',active)
                             setChoices((choices) => {
                               return {
                                 ...choices,

@@ -97,6 +97,21 @@
   overflow: hidden;
   background-color: #fafafa;
   cursor: pointer;
+  position: relative;
+
+  .prodnum {
+    display: inline-block;
+    color: white;
+    background-color: green;
+    padding: 2px 6px;
+    border-bottom-right-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
 
   img {
     position: relative;
@@ -157,6 +172,7 @@
 
   h1 {
     @apply font-extrabold text-gray-600 text-lg mt-5 mb-5 pb-1 uppercase;
+    border-bottom: 3px solid forestgreen;
   }
 
   h3 {
@@ -244,6 +260,7 @@
 }
 
 .profile {
+  font-family: 'Roboto';
   .ptabs {
     overflow: hidden;
 
@@ -270,12 +287,20 @@
     }
   }
 
+  button {
+    @apply rounded-lg px-3 py-2 bg-gray-300;
+    flex-grow: 0;
+    &:hover{
+      @apply bg-gray-200;
+    }
+  }
+
   .pcontent {
     @apply px-1 pt-4 rounded-lg bg-white shadow;
 
     .contentset {
       @apply px-3 pb-8 mb-8;
-      border-bottom: 1px solid #bbb;
+      border-bottom: 1px solid #ddd;
 
       .setheading {
         @apply w-full inline-flex justify-between;
@@ -287,7 +312,6 @@
         }
 
         .actions {
-          @apply text-sm;
           color: blue;
           cursor: pointer;
         }
@@ -317,4 +341,8 @@
       }
     }
   }
+}
+
+.form-error {
+  color: tomato;
 }

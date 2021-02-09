@@ -50,6 +50,24 @@ async function handler(req: any, res: any) {
         }).catch((error: AxiosError) => {
             res.json({ error: error.response?.data })
         })
+    } else if (action === 'add_address') {
+        axios.post(`${process.env.BIGCOMMERCE_STORE_API_URL}/v3/customers/addresses`, [{ ...req.body?.payload }], {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-Auth-Token': `${process.env.BIGCOMMERCE_STORE_API_TOKEN}`
+            }
+        }).then((result: AxiosResponse) => {
+            res.json([...result.data.data])
+        }).catch((error: AxiosError) => {
+            res.json({ error: error.response?.data })
+        })
+    } else if(action === 'update_address') {
+
+    } else if(action === 'remove_address') {
+
+    } else if(action === 'change_password') {
+        
     }
 
     // Rest of the API logic

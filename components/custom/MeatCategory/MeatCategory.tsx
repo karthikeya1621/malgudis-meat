@@ -12,9 +12,9 @@ function MeatCategory({ category }: { category: CategoryResult }) {
         {category.name}
       </h1>
       <div className="w-full mproducts grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 mcontainer-sm py-12">
-        {category.products.map((prod) => {
+        {category.products.map((prod, ind) => {
           return (
-              <MeatProductItem key={`mpi-${prod.entityId}1`} category={category}  product={prod} />
+              <MeatProductItem counter={ind + 1} key={`mpi-${prod.entityId}1`} category={category}  product={prod} />
           )
         })}
       </div>

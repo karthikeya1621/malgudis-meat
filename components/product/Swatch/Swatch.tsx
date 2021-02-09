@@ -46,7 +46,7 @@ const Swatch: FC<Props & ButtonProps> = ({
           <Check />
         </span>
       )}
-      {variant === 'size' ? label : null}
+      {variant === 'size' ? label?.split('lb')[0] + ' lb' : null}
 
       {variant === 'customCuts' ? label : null}
     </Button>
