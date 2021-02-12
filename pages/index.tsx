@@ -4,6 +4,7 @@ import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero, Input } from '@components/ui'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import $ from 'jquery'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/api/operations/get-all-products'
@@ -114,15 +115,38 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [catsOffset, setCatsOffset] = useState(131.5)
   const [isSticked, setIsSticked] = useState(false)
-  const [prodFilters, setProdFilters] = useState([] as any[])
+  const [prodFilters, setProdFilters] = useState(meatCategories.map(m => [] as any[]))
   const [filterSearch, setFilterSearch] = useState(meatCategories.map(m => ''))
+  const [activeCats, setActiveCats] = useState([] as any[])
 
   useEffect(() => {
     setCatsOffset(document.getElementById('header-nav')?.clientHeight as number)
     console.log(meatCategories)
+
+    setTimeout(() => {
+      if(window !== null && meatCategories.length && false){
+        $(window).on('scroll',(e: Event) => {
+          const elemTops = meatCategories.map(mc => {
+            const starttop = window.scrollY + (document?.querySelector('#cat-'+mc.entityId)?.getBoundingClientRect()?.top as number) - 150
+            const endbottom = window.scrollY + (document?.querySelector('#cat-'+mc.entityId)?.clientHeight as number) + (document?.querySelector('#cat-'+mc.entityId)?.getBoundingClientRect()?.top as number) - 150
+            return ({starttop, name: mc.name, endbottom})
+          })
+          const starttop = window.scrollY + (document?.querySelector('#cat-'+meatCategories[0].entityId)?.getBoundingClientRect()?.top as number) - 150
+          const endbottom = window.scrollY + 300 + (document?.querySelector('#cat-'+meatCategories[meatCategories.length - 1].entityId)?.getBoundingClientRect()?.top as number) - 150
+          const activCats = elemTops.filter(et => window.pageYOffset > et.starttop && window.pageYOffset < et.endbottom - 200).map(ac => ac.name)
+          if(window.pageYOffset > starttop && window.pageYOffset < endbottom){
+            if(activeCats.join('') !== activCats.join(''))
+            setActiveCats(activCats)
+          } else {
+            if(activeCats.length){
+              setActiveCats([])
+            }
+          }
+        })
+      }
+    }, 1000)
   }, [])
 
-  // useEffect(() => {console.log(prodFilters, filterSearch)}, [prodFilters, filterSearch])
 
   const toggleCatSticky = () => {
     setIsSticked(!isSticked)
@@ -149,6 +173,10 @@ export default function Home({
                   <div
                     key={`mc-${mc.entityId}`}
                     className="meat-category p-2 rounded-lg transition-all duration-300 hover:shadow"
+                    onClick={() => {
+                      const top = window.scrollY + (document?.querySelector('#cat-'+mc.entityId)?.getBoundingClientRect()?.top as number) - 160
+                      window.scrollTo({top})
+                    }}
                   >
                     <img src={mc.defaultImage?.url} />
                     <span>{mc.name}</span>
@@ -164,7 +192,10 @@ export default function Home({
             {meatCategories
               .filter((mc) => mc.defaultImage && mc.products.length)
               .map((mc, mci) => (
-                <div key={`mcf-${mc.entityId}`} className="filter-category mt-8">
+                <Sticky key={`mcf-${mc.entityId}`} stickyStyle={{ top: catsOffset, zIndex: 6 + mci, backgroundColor: 'white' }}
+                topOffset={-catsOffset}
+                disabled={activeCats.includes(mc.name) ? false : true}>
+                  <div key={`mcf-${mc.entityId}`} className="filter-category mt-8">
                   <h1 className="text-2xl font-medium text-gray-700 mb-3">{mc.name}</h1>
                   <Input className="w-full mb-2" placeholder={`Search in ${mc.name}`} onChange={(val) => {
                     let searchTerms = [...filterSearch];
@@ -179,27 +210,32 @@ export default function Home({
                       } else{
                         isSearched = true;
                       }
-                      return (
+                      return ( !isSearched || product.name.toLowerCase().includes(filterSearch[mci].toLowerCase()) ?
                         <FormControlLabel key={`mpf-${product.entityId}`}
-                        control={<GreenCheckbox checked={product.name.toLowerCase().includes(filterSearch[mci].toLowerCase())}  onChange={(e: any) => {
+                        control={<GreenCheckbox  onChange={(e: any) => {
                           if(e.target.checked){
-                            if(!prodFilters.includes(product.entityId)) {
-                              setProdFilters([...prodFilters, product.entityId])
+                            if(!prodFilters[mci].includes(product.entityId)) {
+                              let clone = Array.from(prodFilters)
+                              clone[mci] = [...clone[mci], product.entityId]
+                              setProdFilters(Array.from(clone))
                             }
                           } else {
-                            if(prodFilters.includes(product.entityId)) {
-                              const removed = prodFilters.filter(pid => pid !== product.entityId)
-                              setProdFilters([...removed])
+                            if(prodFilters[mci].includes(product.entityId)) {
+                              const removed = prodFilters[mci].filter(pid => pid !== product.entityId)
+                              let clone = Array.from(prodFilters)
+                              clone[mci] = [...removed]
+                              setProdFilters(Array.from(clone))
                             }
                           }
-                          
+
                         }} />}
                         label={product.name}
-                      />
+                      /> : <></>
                       )
                     })}
                   </div>
                 </div>
+                </Sticky>
               ))}
           </div>
           <div className="col-span-3">
@@ -207,7 +243,7 @@ export default function Home({
               meatCategories
                 .filter((mc) => mc.defaultImage && mc.products.length)
                 .map((mc, mci) => (
-                  <MeatCategory search={filterSearch[mci]} prodFilters={prodFilters}  key={`mca-${mc.entityId}`} category={mc} />
+                  <MeatCategory search={filterSearch[mci]} prodFilters={prodFilters[mci]}  key={`mca-${mc.entityId}`} category={mc} />
                 ))}
             </div>
           </div>

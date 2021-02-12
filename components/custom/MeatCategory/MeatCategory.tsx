@@ -12,9 +12,8 @@ function MeatCategory({
   prodFilters: any[]
   search: string
 }) {
-  console.log(search)
   return (
-    <div className="mcategory w-full mt-18 mb-3 py-3">
+    <div id={'cat-'+category.entityId} className="mcategory w-full mt-18 mb-3 py-3">
       {
         <h1 className="catheading text-xl text-gray-500 border-b font-bold text-left">
           {category.name}
@@ -23,7 +22,19 @@ function MeatCategory({
       <div className="w-full mproducts grid grid-cols-2 sm:grid-cols-3 py-12">
         {category.products
           .filter((prod, ind) => {
-            return !prodFilters.length || prodFilters.includes(prod.entityId)
+            let isSearched = false
+            if (search === undefined || search === '') {
+              isSearched = false
+            } else {
+              isSearched = true
+            }
+            return (
+              (!prodFilters.length && !isSearched) ||
+              (prodFilters.includes(prod.entityId) && prodFilters.length) ||
+              (prod.name.toLowerCase().includes(search.toLowerCase()) &&
+                isSearched &&
+                !prodFilters.length)
+            )
           })
           .map((prod, ind) => {
             return (
