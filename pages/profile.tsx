@@ -127,8 +127,8 @@ export default function Profile() {
 
 const ProfileTabContent = ({ customer }: { customer: Customer }) => {
   const initialNewAddress = {
-    first_name: '',
-    last_name: '',
+    first_name: customer.firstName,
+    last_name: customer.lastName,
     address1: '',
     city: '',
     state_or_province: '',
@@ -136,12 +136,13 @@ const ProfileTabContent = ({ customer }: { customer: Customer }) => {
     country_code: 'US',
     customer_id: customer.entityId,
     address_type: 'residential',
-    phone: '',
+    phone: customer.phone,
   }
 
   const [state, setState] = useState({
     infoEditable: false,
     addressAddable: false,
+    addressEditable: false
   })
   const [info, setInfo] = useState({
     first_name: customer.firstName,
@@ -181,6 +182,10 @@ const ProfileTabContent = ({ customer }: { customer: Customer }) => {
     setState({ ...state, addressAddable: !state.addressAddable })
   }
 
+  const addressEditableHandle = (e: any) => {
+    setState({...state, addressEditable: !state.addressEditable})
+  }
+
   const addNewAddress = async () => {
     if (newAddress.first_name && newAddress.last_name) {
       const result = await axios.post('/api/profile', {
@@ -190,6 +195,16 @@ const ProfileTabContent = ({ customer }: { customer: Customer }) => {
       if (result.data?.length !== undefined) {
         setState({ ...state, addressAddable: false })
       }
+    }
+  }
+
+  const editAddress = async () => {
+    if(newAddress.first_name && newAddress.last_name) {
+      const result = await axios.post('/api/profile', {
+        action: 'update_address',
+        payload: {...newAddress}
+      })
+      console.log(result);
     }
   }
 
@@ -243,12 +258,18 @@ const ProfileTabContent = ({ customer }: { customer: Customer }) => {
       <div className="contentset">
         <div className="setheading">
           <h3>Manage Address</h3>
-          <span className="actions" onClick={addressAddableHandle}>
-            {state.addressAddable ? 'Cancel' : 'Edit Address'}
-          </span>
+          {addresses.length ? (
+            <span className="actions" onClick={addressEditableHandle}>
+              {state.addressEditable ? 'Cancel' : 'Edit Address'}
+            </span>
+          ) : (
+            <span className="actions" onClick={addressAddableHandle}>
+              {state.addressAddable ? 'Cancel' : 'Add Address'}
+            </span>
+          )}
         </div>
 
-        {state.addressAddable ? (
+        {state.addressAddable || state.addressEditable ? (
           <div className="grid grid-cols-2 gap-4">
             {/* <div className="fieldSet">
               <label htmlFor="customer_first_name">Customer First Name</label>
@@ -275,6 +296,7 @@ const ProfileTabContent = ({ customer }: { customer: Customer }) => {
                   setNewAddress({ ...newAddress, address1: val })
                 }
                 name="address1"
+                defaultValue={(addresses as any[])[0]?.address1}
               />
             </div>
             <div className="fieldSet">
@@ -330,22 +352,20 @@ const ProfileTabContent = ({ customer }: { customer: Customer }) => {
           </div>
         ) : (
           <div className="grid grid-cols-1">
-            {addresses.map((address: any) => (
-              <div key={address.id} className="address w-full">
-                <div className="options">
-                  <EditOutlinedIcon fontSize="small" />
-                  <DeleteOutlinedIcon fontSize="small" />
+            {addresses
+              .filter((a: any, i: number) => i === 0)
+              .map((address: any) => (
+                <div key={address.id} className="address w-full">
+                  <div>
+                    <strong>{address.first_name}</strong>{' '}
+                    <span>{address.phone}</span>
+                  </div>
+                  <p>
+                    {address.address1}, {address.city},{' '}
+                    {address.state_or_province}, {address.postal_code}
+                  </p>
                 </div>
-                <div>
-                  <strong>{address.first_name}</strong>{' '}
-                  <span>{address.phone}</span>
-                </div>
-                <p>
-                  {address.address1}, {address.city},{' '}
-                  {address.state_or_province}, {address.postal_code}
-                </p>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>
@@ -409,8 +429,7 @@ const ChangePasswordTabContent = ({ customer }: { customer: Customer }) => {
   )
 }
 
-
-const PayInfoTabContent = ({customer} : {customer: Customer}) => {
+const PayInfoTabContent = ({ customer }: { customer: Customer }) => {
   return <></>
 }
 

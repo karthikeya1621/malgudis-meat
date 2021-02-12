@@ -1,7 +1,7 @@
 import rangeMap from '@lib/range-map'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
-import { Grid, Marquee, Hero } from '@components/ui'
+import { Grid, Marquee, Hero, Input } from '@components/ui'
 import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
@@ -17,6 +17,8 @@ import getCategory, { CategoryResult } from 'graphql/queries/get-category'
 import { useEffect, useState } from 'react'
 import cn from 'classnames'
 import MeatCategory from '@components/custom/MeatCategory'
+import { Checkbox, FormControlLabel, FormGroup, withStyles } from '@material-ui/core'
+import { green } from '@material-ui/core/colors'
 
 SwiperCore.use([Navigation, Pagination, Scrollbar])
 
@@ -95,6 +97,16 @@ export async function getStaticProps({
 
 const nonNullable = (v: any) => v
 
+const GreenCheckbox: any = withStyles({
+  root: {
+    color: 'default',
+    '&$checked': {
+      color: green[800],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+
 export default function Home({
   brands,
   meatCategories,
@@ -102,24 +114,30 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [catsOffset, setCatsOffset] = useState(131.5)
   const [isSticked, setIsSticked] = useState(false)
+  const [prodFilters, setProdFilters] = useState([] as any[])
+  const [filterSearch, setFilterSearch] = useState(meatCategories.map(m => ''))
 
   useEffect(() => {
     setCatsOffset(document.getElementById('header-nav')?.clientHeight as number)
     console.log(meatCategories)
   }, [])
 
+  // useEffect(() => {console.log(prodFilters, filterSearch)}, [prodFilters, filterSearch])
+
   const toggleCatSticky = () => {
     setIsSticked(!isSticked)
   }
 
+
   return (
     <>
-      <div className="w-full" style={{backgroundColor: '#f2f2f2'}}>
+      <div className="w-full" style={{ backgroundColor: '#fefefe' }}>
         <HomeSlider />
         <Sticky
           onFixedToggle={toggleCatSticky}
           stickyStyle={{ top: catsOffset, zIndex: 6 }}
           topOffset={-catsOffset}
+          disabled={true}
         >
           <div
             className={cn('meat-categories mcontainer', { sticked: isSticked })}
@@ -139,12 +157,60 @@ export default function Home({
             </div>
           </div>
         </Sticky>
-        <div className="w-full" style={{ minHeight: '100vh' }}>
-          {meatCategories
-            .filter((mc) => mc.defaultImage && mc.products.length)
-            .map((mc) => (
-              <MeatCategory key={`mca-${mc.entityId}`} category={mc} />
-            ))}
+
+        <div className="w-full mcontainer-sm grid mt-24 grid-cols-4 gap-6">
+          <div className="col-span-1 homefilter pr-3">
+            <h1 className="text-lg text-gray-800 border-b mt-2">Filters</h1>
+            {meatCategories
+              .filter((mc) => mc.defaultImage && mc.products.length)
+              .map((mc, mci) => (
+                <div key={`mcf-${mc.entityId}`} className="filter-category mt-8">
+                  <h1 className="text-2xl font-medium text-gray-700 mb-3">{mc.name}</h1>
+                  <Input className="w-full mb-2" placeholder={`Search in ${mc.name}`} onChange={(val) => {
+                    let searchTerms = [...filterSearch];
+                    searchTerms[mci] = val
+                    setFilterSearch(searchTerms)
+                    }} />
+                  <div className="checkgroup mb-12 flex-col">
+                    {mc.products.map((product : any) => {
+                      let isSearched = false;
+                      if(filterSearch[mci] === undefined || filterSearch[mci] === '') {
+                        isSearched = false;
+                      } else{
+                        isSearched = true;
+                      }
+                      return (
+                        <FormControlLabel key={`mpf-${product.entityId}`}
+                        control={<GreenCheckbox checked={product.name.toLowerCase().includes(filterSearch[mci].toLowerCase())}  onChange={(e: any) => {
+                          if(e.target.checked){
+                            if(!prodFilters.includes(product.entityId)) {
+                              setProdFilters([...prodFilters, product.entityId])
+                            }
+                          } else {
+                            if(prodFilters.includes(product.entityId)) {
+                              const removed = prodFilters.filter(pid => pid !== product.entityId)
+                              setProdFilters([...removed])
+                            }
+                          }
+                          
+                        }} />}
+                        label={product.name}
+                      />
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+          </div>
+          <div className="col-span-3">
+            <div className="w-full">{
+              meatCategories
+                .filter((mc) => mc.defaultImage && mc.products.length)
+                .map((mc, mci) => (
+                  <MeatCategory search={filterSearch[mci]} prodFilters={prodFilters}  key={`mca-${mc.entityId}`} category={mc} />
+                ))}
+            </div>
+          </div>
         </div>
       </div>
       <div style={{ display: 'none' }}>
