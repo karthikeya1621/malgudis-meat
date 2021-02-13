@@ -7,10 +7,13 @@ import cn from 'classnames'
 import throttle from 'lodash.throttle'
 import InfoBar from '../InfoBar'
 import Rating from '@material-ui/lab/Rating'
+import { useRouter } from 'next/router'
 
 
 const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
+
+  const { pathname } = useRouter()
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -30,7 +33,7 @@ const Navbar: FC = () => {
     <div id="header-nav" className={cn(s.root, { 'shadow-magical': hasScrolled })}>
       <InfoBar />
       <Container>
-        <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
+        <div className="relative flex flex-row justify-between py-1 align-center md:py-2">
           <div className="flex items-center flex-1">
             <Link href="/">
               <a className={s.logo} aria-label="Logo">
@@ -52,7 +55,11 @@ const Navbar: FC = () => {
 
           <div className="justify-center items-center flex-1 hidden lg:flex">
             {/* <Searchbar /> */}
-            <Rating className={s.rating} value={4.3} precision={0.1} readOnly />
+            {
+              pathname !== '/reviews' ? 
+              (<div className="cursor-pointer"><Link href="/reviews"><span><Rating className={s.rating} value={4.3} precision={0.1} readOnly /></span></Link></div>) :
+              <></>
+            }
           </div>
 
           <div className="flex justify-end flex-1 space-x-8">

@@ -68,7 +68,7 @@
     }
 
     &:hover {
-      transform: scale(1.12)
+      transform: scale(1.12);
     }
   }
 
@@ -79,7 +79,6 @@
 }
 
 .catheading {
-
   &::before,
   &::after {
     display: none;
@@ -100,12 +99,12 @@
   position: relative;
   border-color: #eaeaea;
 
-  &:hover{
-    img{
+  &:hover {
+    img {
       transform: scale(1.1);
     }
-    .info{
-      h6{
+    .info {
+      h6 {
         text-decoration: underline;
         color: forestgreen;
       }
@@ -128,8 +127,7 @@
     z-index: 2;
   }
 
-  small{
-
+  small {
   }
 
   img {
@@ -151,7 +149,6 @@
       font-weight: 500;
     }
   }
-
 }
 
 .description-container {
@@ -212,7 +209,6 @@
     @apply text-xs mt-1;
   }
 
-
   h4 {
     @apply mt-3 text-sm font-bold;
   }
@@ -228,7 +224,7 @@
   }
 
   .tab:nth-of-type(odd) {
-    background-color: #EFFDF8;
+    background-color: #effdf8;
   }
 
   .tabb {
@@ -242,7 +238,6 @@
 }
 
 .productview {
-
   label {
     width: 100%;
   }
@@ -314,7 +309,7 @@
   button {
     @apply rounded px-3 py-2 bg-gray-300;
     flex-grow: 0;
-    &:hover{
+    &:hover {
       @apply bg-gray-200;
     }
   }
@@ -371,36 +366,79 @@
   color: tomato;
 }
 
-.homefilter{
-  .checkgroup{
+.homefilter {
+  .checkgroup {
     max-height: 300px;
     min-height: 300px;
     overflow-y: auto;
     scrollbar-width: 8px;
-    .MuiFormControlLabel-label{
+    .MuiFormControlLabel-label {
       @apply text-sm;
     }
-    .MuiFormControlLabel-root{
+    .MuiFormControlLabel-root {
       display: flex;
     }
   }
   /* width */
-::-webkit-scrollbar {
-  width: 6px;
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #212121;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #000;
+  }
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+.public-reviews {
+  background: radial-gradient(circle, forestgreen, darkgreen 90%);
+  color: white;
+  .banner-section {
+    h1 {
+      text-shadow: 0 4px 12px rgb(0 0 0 / 43%);
+    }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #212121;
-}
+    .overalls{
+      width: 100%;
+      max-width: 320px;
+      position: relative;
+      .MuiRating-iconEmpty{
+        color: transparent !important;
+      }
+      .bar{
+        background-color: #343;
+        .innerbar{
+          background-color: gold;
+        }
+      }
+    }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #000;
-}
+    .writereview {
+      @apply w-full px-5 py-8 bg-gray-100 max-w-4xl rounded-xl;
+      color: #121212;
+    }
+
+    .reviewtextarea {
+      color: #222;
+    }
+
+    .reviewbtn {
+      @apply py-3 px-6 shadow bg-white;
+      color: green;
+      &:hover {
+        @apply shadow-sm;
+        background-color: white;
+      }
+    }
+  }
 }
