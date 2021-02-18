@@ -62,12 +62,12 @@ const Navbar: FC = () => {
             }
           </div>
 
-          <div className="flex justify-end flex-1 space-x-8">
+          <div className="flex hidden lg:flex justify-end flex-1 space-x-8">
             <UserNav />
           </div>
         </div>
 
-        <div className="flex pb-4 lg:px-6 lg:hidden">
+        <div className="flex pb-4 hidden lg:px-6 lg:hidden">
           <Searchbar id="mobile-search" />
         </div>
       </Container>

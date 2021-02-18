@@ -19,12 +19,12 @@ const InfoBar: FC = () => {
                 }
             `}
             </style>
-            <div className={`infobar w-100 py-2 flex justify-center`}>
+            <div className={`infobar hidden md:flex w-100 py-2 justify-center`}>
                 <div className="flex w-full max-w-8xl px-6">
-                    <div className="hidden md:block md:w-6/12 lg:w-10/12">
+                    <div className="md:w-6/12 lg:w-10/12">
                         <span>Store Hours: 10 a.m - 10 p.m CST ( Monday - Sunday )</span>
                     </div>
-                    <div className="hidden md:flex md:w-6/12 lg:w-2/12 flex justify-between">
+                    <div className="md:w-6/12 lg:w-2/12 flex justify-between">
                       <div><WhatsAppIcon fontSize="small" /> Chat with Us</div>
                       <div><CallOutlinedIcon fontSize="small" /> <span style={{marginRight: '6px'}}>1800-313-4656</span> <ReactCountryFlag countryCode="US" svg /></div>
                     </div>

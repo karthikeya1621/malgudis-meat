@@ -1,6 +1,11 @@
 .root {
   @apply w-full;
   height: calc(100vh - 300px);
+
+  .swiper-button-prev::after, .swiper-button-next::after{
+    color: forestgreen;
+    font-size: 2rem;
+  }
 }
 
 .slide {
@@ -30,4 +35,18 @@
 .s2 {
   background: rgb(162, 112, 38);
   background: linear-gradient(135deg, rgba(162, 112, 38, 1) 0%, rgba(255, 255, 255, 0.00043767507002800965) 100%);
+}
+
+// Small Devices
+@media (max-width: 639px) {
+  .root{
+    height: 240px;
+    .swiper-button-prev::after, .swiper-button-next::after{
+      color: transparent;
+    }
+  }
+
+  .img{
+    height: 100%;
+  }
 }

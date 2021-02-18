@@ -19,7 +19,7 @@ function MeatCategory({
           {category.name}
         </h1>
       }
-      <div className="w-full mproducts grid grid-cols-2 sm:grid-cols-3 py-12">
+      <div className="w-full mproducts grid grid-cols-2 sm:grid-cols-3 py-6 md:py-12">
         {category.products
           .filter((prod, ind) => {
             let isSearched = false

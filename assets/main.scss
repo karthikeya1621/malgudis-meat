@@ -378,6 +378,10 @@
     .MuiFormControlLabel-root {
       display: flex;
     }
+    .PrivateSwitchBase-input-20{
+      opacity: 0 !important;
+      width: 0 !important;
+    }
   }
   /* width */
   ::-webkit-scrollbar {
@@ -438,6 +442,57 @@
       &:hover {
         @apply shadow-sm;
         background-color: white;
+      }
+    }
+  }
+}
+
+.alrevs{
+  .arev{
+    .comment{
+      font-family: 'Roboto';
+      color: black;
+    }
+  }
+}
+
+.swiper-button-prev::after, .swiper-button-next::after{
+  color: forestgreen;
+  font-size: 2rem !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+  background-color: darkgreen;
+}
+
+// Small Devices
+@media (max-width: 639px) {
+
+  .swiper-button-prev::after, .swiper-button-next::after{
+    color: transparent !important;
+  }
+
+  .meat-categories {
+    .mcc{
+      flex-wrap: wrap;
+      .meat-category{
+        max-width: 26%;
+      }
+    }
+  }
+
+  .mproducts{
+    .mproduct{
+      img{
+        height: 150px;
+      }
+      .info{
+        min-height: 50px;
+        height: unset;
+        h6{
+          line-height: 20px;
+        }
+        width: 100%;
       }
     }
   }

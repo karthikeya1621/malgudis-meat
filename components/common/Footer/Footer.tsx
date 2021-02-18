@@ -44,15 +44,15 @@ const Footer: FC<Props> = ({ className, pages }) => {
     <footer className={rootClassName}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-12 pb-4 transition-colors duration-150">
-          <div className="col-span-1 lg:col-span-3 flex flex-col justify-between">
+          <div className="col-span-1 lg:col-span-3 flex flex-col justify-between text-gray-400">
             <div>
-              <h4 className="mb-3 pb-1 border-b border-accents-6 uppercase text-sm text-gray-200">Contact</h4>
+              <h4 className="mb-3 pb-1 border-b border-accents-6 uppercase text-sm font-extrabold text-gray-500">Contact</h4>
               <span className="text-lg mb-2">MALGUDIS Store</span>
               <p>Plot No: 94 3rd Lane, Opp ITI Gate, LIC Colony, Vijayawada, Krishna District, Andhra Pradesh, India - 520008</p>
               <div className="py-6">
                 <span className="block my-2"><CallOutlinedIcon fontSize="small" /> <a>1800-313-4656</a></span>
                 <span className="block my-2"><EmailOutlinedIcon fontSize="small" /> <a>support@malgudis.us</a></span>
-                <span className="block my-2"><AccessTimeOutlinedIcon fontSize="small" /> <a>Monday- Satusrday | 8 a.m - 6 p.m</a></span>
+                <span className="block my-2"><AccessTimeOutlinedIcon fontSize="small" /> <a>Monday- Saturday | 8 a.m - 6 p.m</a></span>
               </div>
             </div>
             <div className="py-6 border-t border-accents-8">
@@ -60,7 +60,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </div>
           </div>
 
-          <div className="col-span-1 lg:col-span-6 px-6">
+          <div className="col-span-1 lg:col-span-6 md:px-6">
             <form onSubmit={submitFeedback} className="w-full px-4 py-3 mb-6 rounded bg-gray-100 text-primary">
               <h3 className="border-b pb-3 border-accents-4 mb-4 font-semibold">Give us some feedback !</h3>
               <h5>What do you think of our service? How can we improve it?</h5>
@@ -109,9 +109,9 @@ const Footer: FC<Props> = ({ className, pages }) => {
               ))}
             </ul>
           </div> */}
-          <div className="col-span-1 lg:col-span-3 flex flex-col justify-between text-gray-100">
+          <div className="col-span-1 lg:col-span-3 flex flex-col justify-between text-gray-400">
             <div>
-              <h4 className="mb-3 pb-1 border-b border-accents-6 uppercase text-sm text-gray-200">Connect with Us</h4>
+              <h4 className="mb-3 pb-1 border-b border-accents-6 uppercase text-sm font-extrabold text-gray-500">Connect with Us</h4>
 
             </div>
             <div className="py-6 border-t border-accents-8 flex">

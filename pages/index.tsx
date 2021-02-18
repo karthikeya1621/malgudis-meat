@@ -166,7 +166,7 @@ export default function Home({
           <div
             className={cn('meat-categories mcontainer', { sticked: isSticked })}
           >
-            <div className="w-full flex justify-between px-12 py-4">
+            <div className="w-full mcc flex justify-between px-2  md:px-12 py-4">
               {meatCategories
                 .filter((mc) => mc.defaultImage)
                 .map((mc) => (
@@ -174,7 +174,7 @@ export default function Home({
                     key={`mc-${mc.entityId}`}
                     className="meat-category p-2 rounded-lg transition-all duration-300 hover:shadow"
                     onClick={() => {
-                      const top = window.scrollY + (document?.querySelector('#cat-'+mc.entityId)?.getBoundingClientRect()?.top as number) - 160
+                      const top = window.scrollY + (document?.querySelector('#cat-'+mc.entityId)?.getBoundingClientRect()?.top as number) - (document?.getElementById('header-nav')?.clientHeight as number)
                       window.scrollTo({top})
                     }}
                   >
@@ -186,8 +186,8 @@ export default function Home({
           </div>
         </Sticky>
 
-        <div className="w-full mcontainer-sm grid mt-24 grid-cols-4 gap-6">
-          <div className="col-span-1 homefilter pr-3">
+        <div className="w-full mcontainer-sm grid mt-8 md:mt-24 grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="col-span-1 homefilter pr-3 hidden md:block">
             <h1 className="text-lg text-gray-800 border-b mt-2">Filters</h1>
             {meatCategories
               .filter((mc) => mc.defaultImage && mc.products.length)
@@ -238,7 +238,7 @@ export default function Home({
                 </Sticky>
               ))}
           </div>
-          <div className="col-span-3">
+          <div className="col-span-2 md:col-span-3">
             <div className="w-full">{
               meatCategories
                 .filter((mc) => mc.defaultImage && mc.products.length)

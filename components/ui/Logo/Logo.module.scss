@@ -43,3 +43,9 @@
 .cls6 {
   fill: #9a0000;
 }
+
+@media (max-width: 639px) {
+  .root{
+    width: 180px;
+  }
+}
