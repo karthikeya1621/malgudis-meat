@@ -17,7 +17,7 @@ function MeatProductItem({
 
   return (
     <Link href={`/${catSlug}/${prodSlug}`}>
-      <div className="mproduct border-l border-r col-span-1 px-3 md:px-10">
+      <div className="mproduct border-l border-r col-span-1 px-3 md:px-6">
         <span className="prodnum">{counter}</span>
         <img alt="" src={product.defaultImage?.url} />
         <div className="flex justify-between mt-4 mb-1 flex-wrap">
