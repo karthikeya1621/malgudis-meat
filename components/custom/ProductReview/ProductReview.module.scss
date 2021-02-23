@@ -29,8 +29,11 @@
 }
 
 .reviewitem {
-  @apply my-7;
+  @apply py-4 my-2 border-b;
   cursor: default;
+  &:last-of-type{
+    @apply border-b-0;
+  }
 }
 
 .rfullname {

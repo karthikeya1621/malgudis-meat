@@ -1,5 +1,9 @@
 .root {
-  @apply relative flex;
+  @apply relative flex w-full;
+}
+
+.mainContainer{
+  @apply w-full;
 }
 
 .list {
@@ -37,4 +41,15 @@
 
 .avatarButton:focus {
   @apply outline-none;
+}
+
+@media (max-width: 639px) {
+  .list{
+    @apply flex-col items-start pt-4;
+  }
+
+  .item{
+    @apply text-gray-800;
+    margin-bottom: 12px;
+  }
 }

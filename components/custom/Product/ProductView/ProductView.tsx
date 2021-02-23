@@ -134,11 +134,11 @@ const ProductView: FC<{
       />
       <div className="mcontainer-sm mx-auto productview">
         <div className="grid grid-cols-12 gap-2">
-          <div className="col-span-10">
+          <div className="col-span-12 md:col-span-10">
             <div className="grid grid-cols-2 gap-10">
-              <div className="col-span-auto">
+              <div className="col-span-2 md:col-span-auto">
                 <div className="grid grid-cols-12 gap-2">
-                  <div className="col-span-2 thumbnails">
+                  <div className="col-span-2 thumbnails hidden">
                     <Swiper
                       onSwiper={swiperHandler}
                       onSlideChange={slideChangeHandler}
@@ -172,9 +172,9 @@ const ProductView: FC<{
                       </div>
                     </Swiper>
                   </div>
-                  <div className="col-span-10">
+                  <div className="col-span-12">
                     <img
-                      className="rounded-xl w-full h-auto border-r"
+                      className="rounded-xl w-full h-auto border"
                       alt=""
                       src={
                         product.images.edges
@@ -185,7 +185,7 @@ const ProductView: FC<{
                   </div>
                 </div>
               </div>
-              <div className="col-span-auto">
+              <div className="col-span-2 md:col-span-auto">
                 {(product as any).inventory?.isInStock ? (
                   <span className={s.instock}>In Stock</span>
                 ) : (
@@ -334,7 +334,7 @@ const ProductView: FC<{
               </div>
             </div>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-12 md:col-span-2">
             <Button
               aria-label="Add to Cart"
               type="button"

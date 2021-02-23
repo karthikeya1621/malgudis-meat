@@ -8,10 +8,14 @@ import throttle from 'lodash.throttle'
 import InfoBar from '../InfoBar'
 import Rating from '@material-ui/lab/Rating'
 import { useRouter } from 'next/router'
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 
 const Navbar: FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
+
+  const [isMenuVisible, toggleMenu] = useState(false)
 
   const { pathname } = useRouter()
 
@@ -62,9 +66,16 @@ const Navbar: FC = () => {
             }
           </div>
 
-          <div className="flex hidden lg:flex justify-end flex-1 space-x-8">
-            <UserNav />
+          <div className={`flex usernavcont justify-end flex-1 space-x-8 ${isMenuVisible ? 'visible' : ''}`}>
+            <UserNav visible={isMenuVisible} toggleMenu={toggleMenu} />
           </div>
+        </div>
+
+        <div className="sidemenuicon block md:hidden" onClick={() => {toggleMenu(!isMenuVisible)}}>
+            {
+              !isMenuVisible ? <MenuRoundedIcon fontSize="small" />
+              : <CloseRoundedIcon fontSize="small" />
+            }
         </div>
 
         <div className="flex pb-4 hidden lg:px-6 lg:hidden">

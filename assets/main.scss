@@ -91,15 +91,19 @@
   }
 }
 
+.mproducts > a {
+  place-self: stretch;
+}
+
 .mproduct {
   text-align: center;
-  margin-bottom: 32px;
+  padding-bottom: 32px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  border-color: #eaeaea;
   border: 1px solid #eaeaea;
   border-radius: 2px;
+  height: 100%;
 
   &:hover {
     border: 1px solid forestgreen;
@@ -144,7 +148,7 @@
 
   .info {
     bottom: 0;
-    height: 50px;
+    //height: 50px;
     width: 100%;
 
     h6 {
@@ -152,8 +156,13 @@
       margin-right: 6px;
       font-family: 'Roboto';
       font-weight: 500;
+      margin-bottom: 6px;
     }
   }
+}
+
+.productcontainer{
+  @apply bg-cool-gray-50;
 }
 
 .description-container {
@@ -192,7 +201,7 @@
 .description {
   display: flex;
   justify-content: space-evenly;
-
+  flex-wrap: wrap;
   font-family: 'Roboto';
   @apply shadow-sm;
 
@@ -382,7 +391,7 @@
     .MuiFormControlLabel-root {
       display: flex;
     }
-    .PrivateSwitchBase-input-20{
+    .PrivateSwitchBase-input-20 {
       opacity: 0 !important;
       width: 0 !important;
     }
@@ -416,16 +425,16 @@
       text-shadow: 0 4px 12px rgb(0 0 0 / 43%);
     }
 
-    .overalls{
+    .overalls {
       width: 100%;
       max-width: 320px;
       position: relative;
-      .MuiRating-iconEmpty{
+      .MuiRating-iconEmpty {
         color: transparent !important;
       }
-      .bar{
+      .bar {
         background-color: #343;
-        .innerbar{
+        .innerbar {
           background-color: gold;
         }
       }
@@ -451,49 +460,102 @@
   }
 }
 
-.alrevs{
-  .arev{
-    .comment{
+.alrevs {
+  .arev {
+    .comment {
       font-family: 'Roboto';
       color: black;
     }
   }
 }
 
-.swiper-button-prev::after, .swiper-button-next::after{
+.swiper-button-prev::after,
+.swiper-button-next::after {
   color: forestgreen;
   font-size: 2rem !important;
 }
 
-.swiper-pagination-bullet.swiper-pagination-bullet-active{
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: darkgreen;
+}
+
+.usernavcont {
+  position: relative;
+  display: flex;
+}
+
+.smlinks {
+  display: none !important;
 }
 
 // Small Devices
 @media (max-width: 639px) {
+  .scartlink {
+    display: none !important;
+  }
 
-  .swiper-button-prev::after, .swiper-button-next::after{
+  .dmenulink {
+    display: none !important;
+  }
+
+  .smlinks {
+    display: flex !important;
+    .MuiSvgIcon-root {
+      margin-right: 5px;
+    }
+  }
+
+  .sidemenuicon {
+    position: absolute;
+    top: 24px;
+    right: 18px;
+  }
+
+  .usernavcont {
+    position: fixed;
+    top: 78px;
+    bottom: 0;
+    width: 100vw;
+    left: 0px;
+    background-color: white;
+    color: #121212;
+    justify-content: flex-start;
+    padding: 24px 18px;
+    transition: all 0.3s ease;
+    transform: translateX(20px);
+    opacity: 0;
+    pointer-events: none;
+
+    &.visible {
+      transform: translateY(0px);
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
     color: transparent !important;
   }
 
   .meat-categories {
-    .mcc{
+    .mcc {
       flex-wrap: wrap;
-      .meat-category{
+      .meat-category {
         max-width: 26%;
       }
     }
   }
 
-  .mproducts{
-    .mproduct{
-      img{
+  .mproducts {
+    .mproduct {
+      img {
         height: 150px;
       }
-      .info{
+      .info {
         min-height: 50px;
         height: unset;
-        h6{
+        h6 {
           line-height: 20px;
         }
         width: 100%;

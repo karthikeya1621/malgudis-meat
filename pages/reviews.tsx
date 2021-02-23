@@ -76,7 +76,7 @@ export default function Reviews() {
   return (
     <>
       <div className="public-reviews w-full">
-        <div className="banner-section mcontainer-sm m-auto grid grid-cols-2 gap-10 py-12">
+        <div className="banner-section mcontainer-sm m-auto grid grid-cols-1 md:grid-cols-2 gap-10 py-12">
           <div className="col-span-1 flex flex-col justify-center items-center">
             <h1 className="text-6xl font-extrabold mb-4">
               {ratingInfo?.aggregate}{' '}
@@ -113,13 +113,12 @@ export default function Reviews() {
           <div className="col-span-1 flex items-center justify-center">
             <div className="writereview">
               <Box component="fieldset" mb={1} borderColor="transparent">
-                <Typography className="ml-1" component="legend">
+                <Typography className="ml-1 text-sm" component="legend">
                   Rating
                 </Typography>
                 <Rating
                   name="simple-controlled"
                   value={rating}
-                  size="large"
                   onChange={(event, newValue) => {
                     setRating(newValue as number)
                     if (newValue) {
@@ -131,12 +130,13 @@ export default function Reviews() {
                 />
               </Box>
               <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography className="ml-1" component="legend">
+                <Typography className="ml-1 text-sm" component="legend">
                   Comments
                 </Typography>
                 <TextArea
                   className={'reviewtextarea'}
                   placeholder="Write your review here..."
+                  rows={3}
                   onChange={(value) => {
                     setComment(value)
                   }}
@@ -154,21 +154,22 @@ export default function Reviews() {
           </div>
         </div>
       </div>
-      <div className="w-full allrevsmain">
+      <div className="w-full allrevsmain px-4">
         <div className="w-full m-auto" style={{ maxWidth: '720px' }}>
           <div className="alrevs w-full py-6">
             {reviews.map((review, ind) => (
               <div className="arev grid grid-cols-12 gap-4 py-6 px-2 border-b">
-                <div className="col-span-10 font-bold text-gray-500">
-                  {review.firstname} {review.lastname}
+                <div className="col-span-4 font-bold text-gray-500 text-sm">
+                  {review.firstname} {review.lastname.slice(0, 1)}
                 </div>
-                <div className="col-span-2 px-1 text-sm">
-                  {moment(review.reviewed_on.seconds * 1000).format('ll')}
-                </div>
-                <div className="col-span-10 text-lg comment">{review.text}</div>
-                <div className="col-span-2">
+                <div className="col-span-4">
                   <Rating size="small" readOnly value={review.rating} />
                 </div>
+                <div className="col-span-4 px-1 text-sm">
+                  {moment(review.reviewed_on.seconds * 1000).format('ll')}
+                </div>
+                <div className="col-span-12 text-lg comment">{review.text}</div>
+                
               </div>
             ))}
           </div>

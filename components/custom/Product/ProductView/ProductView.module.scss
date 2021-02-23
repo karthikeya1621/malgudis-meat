@@ -73,11 +73,12 @@
 .button {
   text-align: center;
   width: 100%;
-  max-width: 300px;
+  max-width: unset;
   @apply px-2 py-4;
 
   @screen sm {
     min-width: 300px;
+    max-width: 300px;
   }
 }
 
@@ -91,7 +92,7 @@
 
 
 .root {
-  @apply py-12 px-6;
+  @apply py-6 px-0;
 }
 
 .instock{
@@ -110,8 +111,12 @@
 
 .reviewed {
   padding-bottom: 3px;
+  margin-top: 3px;
   display: flex;
+  align-items: center;
   small{
     margin-left: 4px;
   }
 }
+
+
