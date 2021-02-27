@@ -30,6 +30,10 @@ const LINKS = [
     name: 'My Cart',
     href: '/cart',
   },
+  {
+    name: 'My Orders',
+    href: '/orders'
+  }
 ]
 
 const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {

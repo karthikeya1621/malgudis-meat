@@ -136,7 +136,7 @@ const ProductView: FC<{
         <div className="grid grid-cols-12 gap-2">
           <div className="col-span-12 md:col-span-10">
             <div className="grid grid-cols-2 gap-10">
-              <div className="col-span-2 md:col-span-auto">
+              <div className="col-span-2 md:col-span-1">
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-2 thumbnails hidden">
                     <Swiper
@@ -185,7 +185,7 @@ const ProductView: FC<{
                   </div>
                 </div>
               </div>
-              <div className="col-span-2 md:col-span-auto">
+              <div className="col-span-2 md:col-span-1">
                 {(product as any).inventory?.isInStock ? (
                   <span className={s.instock}>In Stock</span>
                 ) : (

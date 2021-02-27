@@ -33,6 +33,14 @@ const LoginView: FC<Props> = () => {
         email,
         password,
       })
+      const uData = btoa(JSON.stringify({email, password}))
+
+      const iframe = document.getElementById('shareFrame') as HTMLIFrameElement;
+      (iframe?.contentWindow as Window).postMessage({
+        action: 'save',
+        key: 'malgudiMeatU',
+        value: uData
+      }, '*')
       setLoading(false)
       closeModal()
     } catch ({ errors }) {

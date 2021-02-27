@@ -38,7 +38,7 @@ const CartSidebarView: FC = () => {
 
   const getCheckoutData = async () => {
     //const cstate = await service.loadCheckout()
-
+    // console.log(cstate)
   }
 
 
